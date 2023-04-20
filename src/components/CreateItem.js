@@ -55,16 +55,16 @@ class CreateItem extends Component {
                         if (this.state.condition) {
                             if (this.state.requestedBy) {
                                 // if (this.state.states) {
-                                    ItemService.createItem(item).then((res) => {
-                                        if (res === 'Request failed with status code 500') {
-                                            alert('Network error')
-                                            this.setState({ loading: false })
-                                        } else {
-                                            this.setState({ loading: false })
-                                            this.props.history.push("/items");
-                                        }
-                                        console.log({ res });
-                                    });
+                                ItemService.createItem(item).then((res) => {
+                                    if (res === 'Request failed with status code 500') {
+                                        alert('Network error')
+                                        this.setState({ loading: false })
+                                    } else {
+                                        this.setState({ loading: false })
+                                        this.props.history.push("/items");
+                                    }
+                                    console.log({ res });
+                                });
 
                                 // } else {
                                 //     alert("Select state")
@@ -137,35 +137,44 @@ class CreateItem extends Component {
     }
 
     render() {
+        const myStyle = {
+            // backgroundImage:
+            //     "url('https://reddingtonchalets.com/wp-content/uploads/2022/05/beach_resort_hotel_ghana_pool.jpg')",
+            height: '100vh',
+            backgroundSize: 'cover',
+            // backgroundRepeat: 'no-repeat',
+            backgroundColor: "#008000"
+        };
 
         return (
             <React.Fragment>
-                <div className="col-lg-12" style={{ marginTop: "150px", }}>
-                    <div className="row">
-                        <div className="card col-md-6 offset-md-3 offset-md-3">
-                            <h3 className="text-center" style={{ margin: "10px", fontWeight: "bolder" }}> Add Item</h3>
-                            <div className="card-body">
-                                <form>
-                                    <div className="container">
-                                        <div className="form-group">
-                                            <div className="row">
-                                                <div className="col-md-6">
-                                                    <input placeholder="Description" name="description" className="form-control" value={this.state.description} onChange={this.changeDescriptionHandler} />
-                                                </div>
+                {/* <div style={myStyle}> */}
+                    <div className="col-lg-12" style={{ marginTop: "150px", }}>
+                        <div className="row">
+                            <div className="card col-md-6 offset-md-3 offset-md-3">
+                                <h3 className="text-center" style={{ margin: "10px", fontWeight: "bolder" }}> Add Item</h3>
+                                <div className="card-body">
+                                    <form>
+                                        <div className="container">
+                                            <div className="form-group">
+                                                <div className="row">
+                                                    <div className="col-md-6">
+                                                        <input placeholder="Description" name="description" className="form-control" value={this.state.description} onChange={this.changeDescriptionHandler} />
+                                                    </div>
 
-                                                <div className="col-md-6">
-                                                    <input placeholder="Requested By" name="requestedBy" className="form-control" value={this.state.requestedBy} onChange={this.changeRequestByHandler} />
-                                                </div></div>
-                                            <div className="row">
-                                                <div className="col-md-6" style={{ marginTop: "15px" }}>
-                                                    <input placeholder="Requester Email" type="email" name="requesterEmail" className="form-control" value={this.state.requesterEmail} onChange={this.changeRequesterEmail} />
-                                                </div>
+                                                    <div className="col-md-6">
+                                                        <input placeholder="Requested By" name="requestedBy" className="form-control" value={this.state.requestedBy} onChange={this.changeRequestByHandler} />
+                                                    </div></div>
+                                                <div className="row">
+                                                    <div className="col-md-6" style={{ marginTop: "15px" }}>
+                                                        <input placeholder="Requester Email" type="email" name="requesterEmail" className="form-control" value={this.state.requesterEmail} onChange={this.changeRequesterEmail} />
+                                                    </div>
 
-                                                <div className="col-md-6" style={{ marginTop: "15px" }}>
-                                                    <input placeholder="Quantity" type="number" name="quantity" className="form-control" value={this.state.quantity} onChange={this.changeQuatityHandler} />
+                                                    <div className="col-md-6" style={{ marginTop: "15px" }}>
+                                                        <input placeholder="Quantity" type="number" name="quantity" className="form-control" value={this.state.quantity} onChange={this.changeQuatityHandler} />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            {/* <div className="row">
+                                                {/* <div className="row">
                                                 <div className="col-md-12" style={{ marginTop: "15px", marginBottom: "15px" }} >
                                                     <select className="form-select" onChange={this.handleStatesHandler}>
                                                         <option defaultValue> Select state</option>
@@ -208,43 +217,44 @@ class CreateItem extends Component {
                                                     </select>
                                                 </div>
                                             </div> */}
-                                            <div className="row" style={{ marginTop: "15px" }}>
-                                                <div className="col-md-12" >
-                                                    <input placeholder="Location" type="location" name="location" className="form-control" value={this.state.location} onChange={this.handlelocationHandler} />
+                                                <div className="row" style={{ marginTop: "15px" }}>
+                                                    <div className="col-md-12" >
+                                                        <input placeholder="Location" type="location" name="location" className="form-control" value={this.state.location} onChange={this.handlelocationHandler} />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div className="row">
-                                                <div className="col-12" style={{ marginTop: "15px" }}>
-                                                    <select className="form-select" onChange={this.handleConditionHandler}>
-                                                        <option defaultValue>Item Condition</option>
-                                                        <option condition="1">A1</option>
-                                                        <option condition="2">A2</option>
-                                                        <option condition="3">A3</option>
-                                                        <option condition="4">F1</option>
-                                                        <option condition="5">F2</option>
-                                                        <option condition="6">F3</option>
-                                                    </select>
-                                                </div>
+                                                <div className="row">
+                                                    <div className="col-12" style={{ marginTop: "15px" }}>
+                                                        <select className="form-select" onChange={this.handleConditionHandler}>
+                                                            <option defaultValue>Item Condition</option>
+                                                            <option condition="1">A1</option>
+                                                            <option condition="2">A2</option>
+                                                            <option condition="3">A3</option>
+                                                            <option condition="4">F1</option>
+                                                            <option condition="5">F2</option>
+                                                            <option condition="6">F3</option>
+                                                        </select>
+                                                    </div>
 
-                                                <div className="col-12" style={{ marginTop: "15px" }} >
-                                                    <select className="form-select" onChange={this.changeStatusHandler}>
-                                                        <option defaultValue>Select Status</option>
-                                                        <option link="1">Deployed</option>
-                                                        <option link="2">Returned</option>
-                                                    </select>
+                                                    <div className="col-12" style={{ marginTop: "15px" }} >
+                                                        <select className="form-select" onChange={this.changeStatusHandler}>
+                                                            <option defaultValue>Select Status</option>
+                                                            <option link="1">Deployed</option>
+                                                            <option link="2">Returned</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="form-row text-center" style={{ marginTop: "12px" }}>
+                                                <div className="col-12" style={{ marginTop: "15px" }}>
+                                                    <button className="btn btn-primary" style={{ backgroundColor: "#008000", borderColor: "#008000" }} onClick={this.addItem}>
+                                                        {this.state.loading && <div className="spinner-border text-light" role="status"></div>}
+                                                        Add Item</button>
+                                                    <button className="btn btn-outline-danger" onClick={this.cancel.bind(this)} style={{ margin: "22px" }}>Cancel</button>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="form-row text-center" style={{ marginTop: "12px" }}>
-                                            <div className="col-12" style={{ marginTop: "15px" }}>
-                                                <button className="btn btn-primary" onClick={this.addItem}>
-                                                    {this.state.loading && <div className="spinner-border text-light" role="status"></div>}
-                                                    Add Item</button>
-                                                <button className="btn btn-outline-danger" onClick={this.cancel.bind(this)} style={{ margin: "22px" }}>Cancel</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                {/* </div> */}
                             </div>
                         </div>
                     </div>

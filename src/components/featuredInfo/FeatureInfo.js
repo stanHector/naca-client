@@ -17,6 +17,16 @@ export default function FeatureInfo({ isLoading, allAssets, items }) {
     const stateItem = items.map((x) => x).filter((x) => x.states === states);
     const itemsDeployCount = stateItem.map((x) => x.status).filter((x) => x === 'Deployed');
 
+    const myStyle = {
+        //         backgroundImage: 
+        //  "url('https://media.geeksforgeeks.org/wp-content/uploads/rk.png')",
+        height: '100vh',
+        marginTop: '-70px',
+        fontSize: '50px',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundColor: " #33FF71 "
+    };
     return (
 
         <>
@@ -30,7 +40,7 @@ export default function FeatureInfo({ isLoading, allAssets, items }) {
                         </div>
                     </div> */}
 
-                <div className={isLoading ? "featuredLoading featuredItem" : "featuredItem"} style={{ backgroundColor: "#9FE2BF " }}>
+                <div className={isLoading ? "featuredLoading featuredItem" : "featuredItem"} style={{ backgroundColor: "#229954 " }}>
                     {
                         isLoading ? (<div className="spinner-border text-primary dashboard-spinner" role="status"></div>)
                             :
@@ -43,7 +53,7 @@ export default function FeatureInfo({ isLoading, allAssets, items }) {
                             </>)
                     }
                 </div>
-                <div className={isLoading ? "featuredLoading featuredItem" : "featuredItem"} style={{ backgroundColor: "#40E0D0" }}>
+                <div className={isLoading ? "featuredLoading featuredItem" : "featuredItem"} style={{ backgroundColor: "#27AE60" }}>
                     {
                         isLoading ? (<div className="spinner-border text-primary dashboard-spinner" role="status"></div>)
                             : (<>
@@ -56,7 +66,7 @@ export default function FeatureInfo({ isLoading, allAssets, items }) {
                     }
                 </div>
 
-                <div className={isLoading ? "featuredLoading featuredItem" : "featuredItem"} style={{ backgroundColor: "#6495ED" }}>
+                <div className={isLoading ? "featuredLoading featuredItem" : "featuredItem"} style={{ backgroundColor: "#52BE80" }}>
                     {
                         isLoading ? (<div className="spinner-border text-primary dashboard-spinner" role="status"></div>)
                             : (

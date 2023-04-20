@@ -43,11 +43,8 @@ class UpdateUser extends Component {
       firstname: this.state.firstname,
       lastname: this.state.lastname,
       email: this.state.email,
-      //   password: this.state.password,
       userType: this.state.userType,
-      //   states: this.state.states,
     };
-    // console.log("user => " + JSON.stringify(user));
 
     UserService.updateUser(user, this.state.id).then((res) => {
       this.props.history.push("/dashboard");

@@ -8,21 +8,20 @@ class UpdateAsset extends Component {
             id: this.props.match.params.id,
             description: "",
             assetId: "",
-            manufacturer: "",
-            otherBrand: "",
-            modelNumber: "",
             serialNumber: "",
             dateReceived: "",
-            purchasedPrice: "",
-            funder: "",
-            project: "",
-            condition: "",
-            states: "",
-            facility: "",
+            fundedBy: "",
+            modelNumber: "",
+            quantity: "",
+            unitPrice: "",
+            purchasePrice: "",
+            totalCostUsd: "",
+            implementer: "",
+            implementationPeriod: "",
+            categories: "",
             location: "",
-            assignee: "",
-            email: "",
-            status: "",
+            custodian: "",
+            condition: "",
             loading: false,
         };
 
@@ -40,7 +39,7 @@ class UpdateAsset extends Component {
         this.handleStatesHandler = this.handleStatesHandler.bind(this);
         this.changeFacilityHandler = this.changeFacilityHandler.bind(this);
         this.changeLocationHandler = this.changeLocationHandler.bind(this);
-        this.handleAssigneeHandler = this.handleAssigneeHandler.bind(this);
+        this.handleCustodianHandler = this.handleCustodianHandler.bind(this);
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
         this.changeStatusHandler = this.changeStatusHandler.bind(this);
 
@@ -53,20 +52,20 @@ class UpdateAsset extends Component {
             this.setState({
                 description: asset.description,
                 assetId: asset.assetId,
-                manufacturer: asset.manufacturer,
-                otherBrand: asset.otherBrand,
-                modelNumber: asset.modelNumber,
                 serialNumber: asset.serialNumber,
                 dateReceived: asset.dateReceived,
-                purchasedPrice: asset.purchasedPrice,
-                funder: asset.funder,
-                project: asset.project,
-                condition: asset.condition,
-                states: asset.states,
-                facility: asset.facility,
+                fundedBy: asset.fundedBy,
+                modelNumber: asset.modelNumber,
+                quantity: asset.quantity,
+                unitPrice: asset.unitPrice,
+                purchasePrice: asset.purchasePrice,
+                totalCostUsd: asset.totalCostUsd,
+                implementer: asset.implementer,
+                implementationPeriod: asset.implementationPeriod,
+                categories: asset.categories,
                 location: asset.location,
-                assignee: asset.assignee,
-                email: asset.email,
+                custodian: asset.custodian,
+                condition: asset.condition,
                 status: asset.status,
             });
         })
@@ -89,11 +88,9 @@ class UpdateAsset extends Component {
             // funder: this.state.funder,
             // project: this.state.project,
             condition: this.state.condition,
-            states: this.state.states,
-            facility: this.state.facility,
             location: this.state.location,
-            assignee: this.state.assignee,
-            email: this.state.email,
+            custodian: this.state.custodian,
+            // email: this.state.email,
             status: this.state.status,
 
         };
@@ -151,8 +148,8 @@ class UpdateAsset extends Component {
         this.setState({ funder: event.target.value });
     };
 
-    handleAssigneeHandler = (event) => {
-        this.setState({ assignee: event.target.value });
+    handleCustodianHandler = (event) => {
+        this.setState({ custodian: event.target.value });
     };
 
     changeEmailHandler = (event) => {
@@ -202,7 +199,7 @@ class UpdateAsset extends Component {
                                                 <input placeholder="Asset Id" name="assetid" className="form-control" value={this.state.assetId} onChange={this.changeAssetIDHandler} />
                                             </div>
 
-                                            <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Manufacturer</label>
+                                            {/* <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Manufacturer</label>
                                             <div className="col-sm-12">
                                                 <input name="manufacturer" className="form-control" value={this.state.manufacturer} onChange={this.changeManufacturerHandler} />
                                             </div>
@@ -210,7 +207,7 @@ class UpdateAsset extends Component {
                                             <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Other Brand/Make </label>
                                             <div className="col-sm-12">
                                                 <input placeholder="Other Brand/Make" name="otherBrand" className="form-control" value={this.state.otherBrand} onChange={this.changeOtherBrandHandler} />
-                                            </div>
+                                            </div> */}
 
                                             <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Model Number</label>
                                             <div className="col-sm-12">
@@ -229,20 +226,33 @@ class UpdateAsset extends Component {
 
                                             <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Funded By</label>
                                             <div className="col-sm-12">
-                                                <input name="funder" className="form-control" value={this.state.funder} onChange={this.handleFunderHandler} />
+                                                <input name="fundedBy" className="form-control" value={this.state.fundedBy} />
+                                            </div>
+
+                                            <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Quantity </label>
+                                            <div className="col-sm-12">
+                                                <input placeholder="Quantity" name="quantity" className="form-control" value={this.state.quantity} />
+                                            </div>
+
+                                            <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Unit Price </label>
+                                            <div className="col-sm-12">
+                                                <input placeholder="Unit Price" name="unitPrice" className="form-control" value={this.state.unitPrice} />
                                             </div>
 
                                             <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Purchased Price(N) </label>
                                             <div className="col-sm-12">
-                                                <input placeholder="Purchased Price" name="purchasedPrice" className="form-control" value={this.state.purchasedPrice} onChange={this.changePurchasedPriceHandler} />
+                                                <input placeholder="Purchased Price" name="purchasePrice" className="form-control" value={this.state.purchasePrice} />
                                             </div>
 
-                                            <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Project </label>
+                                            <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Total cost (USD) </label>
                                             <div className="col-sm-12">
-                                                <input placeholder="Project" name="project" className="form-control" value={this.state.project} onChange={this.changeProjectHandler} />
+                                                <input placeholder="Total Cost in USD" name="totalCostUsd" className="form-control" value={this.state.totalCostUsd} />
                                             </div>
 
-
+                                            <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Category </label>
+                                            <div className="col-sm-12">
+                                                <input placeholder="Category" name="categories" className="form-control" value={this.state.categories} />
+                                            </div>
                                             <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Asset Condition </label>
                                             <div className="col-sm-12">
                                                 <input placeholder="Asset Condition" name="condition" className="form-control" value={this.state.condition} />
@@ -252,7 +262,7 @@ class UpdateAsset extends Component {
                                                 <div className="col-12" style={{ marginTop: "15px" }}>
                                                     <select className="form-select" onChange={this.handleConditionHandler}>
                                                         <option defaultValue>Select asset condition</option>
-                                                        <option condition="1">A1</option>
+                                                        <option condition="1">A1 (New)</option>
                                                         <option condition="2">A2</option>
                                                         <option condition="3">A3</option>
                                                         <option condition="4">F1</option>
@@ -262,64 +272,11 @@ class UpdateAsset extends Component {
                                                 </div>
                                             }
 
-                                            <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>State </label>
-                                            <div className="col-sm-12">
-                                                <input placeholder="State" name="states" className="form-control" value={this.state.states} />
-                                            </div>
-                                            {
-                                                users !== 'User' &&
-                                                <div className="col-sm-12" style={{ marginTop: "10px" }} >
-                                                    <select className="form-select" onChange={this.handleStatesHandler}>
-                                                        <option defaultValue>Select state</option>
-                                                        <option states="1">FCT</option>
-                                                        <option states="2">Abia</option>
-                                                        <option states="3">Adamawa</option>
-                                                        <option states="4">Akwa-Ibom</option>
-                                                        <option states="5">Anambra</option>
-                                                        <option states="6">Bauchi</option>
-                                                        <option states="7">Bayelsa</option>
-                                                        <option states="8">Benue</option>\
-                                                        <option states="9">Borno</option>
-                                                        <option states="10">Cross-River</option>
-                                                        <option states="11">Delta</option>
-                                                        <option states="12">Ebonyi</option>
-                                                        <option states="13">Edo</option>
-                                                        <option states="14">Ekiti</option>
-                                                        <option states="15">Enugu</option>
-                                                        <option states="16">Gombe</option>
-                                                        <option states="17">Imo</option>
-                                                        <option states="18">Jigawa</option>
-                                                        <option states="19">Kaduna</option>
-                                                        <option states="20">Kano</option>
-                                                        <option states="21">Katsina</option>
-                                                        <option states="22">Kebbi</option>
-                                                        <option states="23">Kogi</option>
-                                                        <option states="24">Kwara</option>
-                                                        <option states="25">Lagos</option>
-                                                        <option states="26">Nasarawa</option>
-                                                        <option states="27">Niger</option>
-                                                        <option states="28">Ogun</option>
-                                                        <option states="29">Ondo</option>
-                                                        <option states="31">Oyo</option>
-                                                        <option states="32">Plateau</option>
-                                                        <option states="33">Rivers</option>
-                                                        <option states="34">Sokoto</option>
-                                                        <option states="35">Taraba</option>
-                                                        <option states="36">Yobe</option>
-                                                        <option states="37">Zamfara</option>
-                                                    </select>
-                                                </div>
-                                            }
 
-                                            {/* <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Facility </label>
-                                            <div className="col-sm-12">
-                                                <input placeholder="Facility" name="facility" className="form-control" value={this.state.facility} onChange={this.changeFacilityHandler} />
-                                            </div> */}
-
-                                            <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Facility</label>
+                                            {/* <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Facility</label>
                                             <div className="col-sm-12">
                                                 <input name="facility" className="form-control" value={this.state.facility} onChange={this.changeFacilityHandler} />
-                                            </div>
+                                            </div> */}
 
 
                                             <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Location</label>
@@ -328,15 +285,20 @@ class UpdateAsset extends Component {
                                             </div>
 
 
-                                            <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Assignee</label>
+                                            <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Custodian</label>
                                             <div className="col-sm-12">
-                                                <input name="assignee" className="form-control" value={this.state.assignee} onChange={this.handleAssigneeHandler} />
+                                                <input name="assignee" className="form-control" value={this.state.custodian} onChange={this.handleAssigneeHandler} />
                                             </div>
 
-                                            <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Email</label>
+                                            {/* <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Email</label>
                                             <div className="col-sm-12">
                                                 <input name="email" type="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler} />
-                                            </div>
+                                            </div> */}
+
+                                            {/* <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Email</label>
+                                            <div className="col-sm-12">
+                                                <input name="email" type="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler} />
+                                            </div> */}
 
                                             <div className="col-12" style={{ marginTop: "15px" }}>
                                                 <select className="form-select" onChange={this.changeStatusHandler}>

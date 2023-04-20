@@ -114,7 +114,7 @@ class UsersList extends Component {
                                 <th>First Name</th>
                                 <th>Last Name</th>
                                 <th>Email</th>
-                                <th>Location</th>
+                                <th>State</th>
                                 <th>Role</th>
                                 <th>Project</th>
                             </tr>

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import './upload.css'
 import { BaseURL } from '../../services/index'
 
-class UploadAsset extends Component {
+class UploadInventory extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -28,11 +28,11 @@ class UploadAsset extends Component {
                 this.state.selectedFile,
                 this.state.selectedFile.name,
             );
-            await fetch(`${BaseURL}/uploadAsset`, {
+            await fetch(`${BaseURL}/uploadInventory`, {
                 method: 'POST',
                 body: formData,
             });
-            this.props.history.push("/assets");
+            this.props.history.push("/inventories");
         } else {
             alert('Please upload a file!')
             this.setState({ loading: false })
@@ -40,7 +40,7 @@ class UploadAsset extends Component {
     };
 
     cancel() {
-        this.props.history.push("/assets");
+        this.props.history.push("/inventories");
     }
 
     render() {
@@ -51,7 +51,7 @@ class UploadAsset extends Component {
                         <form onSubmit={this.handleSubmit}>
                             <div className="card">
                                 <div className="text-center" style={{ marginTop: "20px", marginBottom: "25px", fontFamily: "cursive", fontWeight: "bold" }}>
-                                    <h3>Upload asset from excel file</h3>
+                                    <h3>Upload Inventory from excel file</h3>
                                 </div>
                                 <div className="card-block">
                                     <div class="custom-file mb-3 text-center" >
@@ -63,7 +63,6 @@ class UploadAsset extends Component {
                                             Upload Now
                                         </button>
                                         <button onClick={this.cancel.bind(this)} className="btn btn-outline-danger" style={{ margin: "30px" }} >Cancel Now</button>
-
                                     </div>
                                 </div>
                             </div>
@@ -75,4 +74,4 @@ class UploadAsset extends Component {
     }
 }
 
-export default UploadAsset;
+export default UploadInventory;

@@ -35,7 +35,7 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
-  background-color: #3a9fe1;
+  background-color: #2ECC71;
 }
 
 .log {
@@ -124,4 +124,9 @@
   background-size: cover;
   /* Resize the background image to cover the entire container */
   padding-top: 50px;
+}
+
+.topAvatar{
+  align-items: center;
+  justify-content: space-between;
 }

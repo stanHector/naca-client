@@ -25,9 +25,21 @@ import ItemsList from './components/ItemsList'
 import UpdateItem from './components/UpdateItem'
 import ViewItem from './components/ViewItem'
 import UploadItem from './components/upload/UploadItem'
+import InventoryList from './components/InventoryList'
+import ViewInventory from './components/ViewInventory'
+import UpdateInventory from './components/UpdateInventory';
+import BincardList from './components/BincardList';
+import UploadInventory from './components/upload/UploadInventory';
+import ViewBinCard from './components/ViewBinCard';
+import UpdateInvent from './components/UpdateInvent';
+import Consolidated from './components/Consolidated';
+import UpdateInventories from './components/UpdateInventories';
+import Report from './components/Report';
+import ViewStockCard from './components/ViewStockCard';
 
 import LoanList from "./components/LoanList"
 import ViewLoan from "./components/ViewLoan"
+import CreateInventory from './components/CreateInventory';
 
 
 function App() {
@@ -52,6 +64,7 @@ function App() {
         <Route path='/view-asset/:id' component={ViewAsset}></Route>
         <Route path='/my-profile/:id' component={UserProfile}></Route>
         <Route path='/upload-asset' component={UploadAsset}></Route>
+        <Route path= '/upload-inventory' component={UploadInventory}></Route>
         <Route path='/upload-item' component={UploadItem}></Route>
         <Route path='/create-loan' component={CreateLoan}></Route>
         <Route path='/create-item' component={CreateItem}></Route>
@@ -60,8 +73,19 @@ function App() {
         <Route path="/update-item/:id" component={UpdateItem}></Route>
         <Route path='/view-item/:id' component={ViewItem}></Route>
         <Route path='/view-loan/:id' component={ViewLoan}></Route>
-           
-          
+        <Route path='/inventories' component={InventoryList}></Route>
+        <Route path='/view-inventory/:id' component={ViewInventory}></Route>
+        <Route path='/update-inventory/:id' component={UpdateInventory}></Route>
+        <Route path='/update-invent/:id' component={UpdateInvent}></Route>
+        <Route path="/bincards" component={BincardList}></Route>
+        <Route path='/view-bincard/:id' component={ViewBinCard}></Route>
+        <Route path='/view-stock/:id' component={ViewStockCard}></Route>
+        <Route path='/consolidated' component={Consolidated}></Route>
+        <Route path='/update/:id' component={UpdateInventories}></Route>
+        <Route path='/stocks' component={Report}></Route>
+        <Route path='/create-inventory' component={CreateInventory}></Route>
+        
+
         {/* <Redirect to="/"/> */}
       </Switch>
     )

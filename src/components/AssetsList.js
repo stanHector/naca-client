@@ -101,9 +101,13 @@ class AssetsList extends Component {
     const user = JSON.parse(localStorage.getItem('user'));
     const users = JSON.parse(localStorage.getItem('user'))?.userType;
     const userType = user?.userType;
-    const userLocation = user?.result?.states
+    const userLocation = user?.result?.states;
+    // const stateAsset = this.state.assets.map((x) => x).filter((x) => x.states === userLocation);
     const userAssets = this.state?.assets?.map((x) => x).filter((x) => x.states === userLocation)
     const data = userType !== 'User' ? this.state.assets : userAssets;
+
+
+    console.log(userAssets.length)
 
     return (
       <React.Fragment>
@@ -120,12 +124,12 @@ class AssetsList extends Component {
                 <th>No.</th>
                 <th>Description</th>
                 <th>AssetID</th>
-                <th>Manufacturer</th>
-                <th>ModelNumber</th>
+                {/* <th>Manufacturer</th> */}
+                <th>Model</th>
                 <th>SerialNumber</th>
                 <th>State</th>
-                <th>Assignee</th>
-                <th>Status</th>
+                <th>Custodian</th>
+                {/* <th>Status</th> */}
               </tr>
             </thead>
             <tbody style={{ textAlign: "center", fontSize: "11px" }}>
@@ -138,12 +142,12 @@ class AssetsList extends Component {
                       {(recordPerPage * (currentPage - 1)) + index + 1}</td>
                     <td>{asset.description}</td>
                     <td>{asset.assetId}</td>
-                    <td>{asset.manufacturer}</td>
-                    <td>{asset.modelNumber}</td>
+                    {/* <td>{asset.manufacturer}</td> */}
+                    <td>{asset.model}</td>
                     <td>{asset.serialNumber}</td>
                     <td>{asset.states}</td>
-                    <td>{asset.assignee}</td>
-                    <td>{asset.status}</td>
+                    <td>{asset.custodian}</td>
+                    {/* <td>{asset.status}</td> */}
                   </tr>
                 ))}
             </tbody>

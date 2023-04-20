@@ -33,11 +33,11 @@ class AssetService {
   }
 
   updateAsset(asset, assetId) {
-    return axios.put(`${BaseURL}/asset/` + assetId, asset);
+    return axios.patch(`${BaseURL}/asset/` + assetId, asset);
   }
 
   updateAssets(asset, assetId) {
-    return axios.patch(`${BaseURL}/asset/` + assetId, asset);
+    return axios.put(`${BaseURL}/assets/` + assetId, asset);
   }
 
   deleteAsset(assetId) {

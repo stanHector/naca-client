@@ -10,7 +10,7 @@
      margin: 0px 10px;
      padding: 24px;
      border-top-right-radius: 25px;
-     border-bottom-right-radius: 25px;
+     border-bottom-left-radius: 25px;
      -webkit-box-shadow: 0px 0px 11px -1px #000000;
      box-shadow: 0px 0px 2.5px -1px #000000;
      color: white;
@@ -19,7 +19,7 @@
  .featuredTitle {
      font-size: 20px;
      font-weight: bold;
-     color: #CE5300;
+     color: #F8F9F9;
      opacity: 0.5;
  }
 

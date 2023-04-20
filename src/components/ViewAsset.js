@@ -28,9 +28,9 @@ class ViewAsset extends Component {
     render() {
         return (
             <div>
-                <div className="container" style={{ marginTop: "15px", padding: "50px" }}>
+                <div className="container" style={{ marginTop: "15px" }}>
                     <div className="row">
-                        <div className="card col-md-6 offset-md-3 offset-md-3">
+                        <div className="card col-md-8 offset-md-2 offset-md-2">
                             <h3 className="text-center" style={{ margin: "15px",  fontWeight: "bold" }}>Asset Detail</h3>
                             <div className="card-body" style={{ marginLeft: "15px", marginRight: "15px", fontFamily: "cursive" }}>
                                 <table class="table" >
@@ -47,15 +47,10 @@ class ViewAsset extends Component {
                                             <td style={{ fontSize: "20px" }}>{this.state.asset.assetId}</td>
                                         </tr>
 
-                                        <tr >
-                                            <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Manufacturer :</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.asset.manufacturer}</td>
-                                        </tr>
                                         <tr>
                                             <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Other Brand/Make :</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.asset.otherBrand}</td>
+                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>SerialNumber :</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.asset.serialNumber}</td>
                                         </tr>
 
                                         <tr>
@@ -63,11 +58,30 @@ class ViewAsset extends Component {
                                             <td style={{ fontSize: "20px", fontWeight: "bold" }}>ModelNumber:</td>
                                             <td style={{ fontSize: "20px" }}>{this.state.asset.modelNumber}</td>
                                         </tr>
+
+                                        <tr >
+                                            <th scope="row"></th>
+                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Date Received :</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.asset.dateReceived}</td>
+                                        </tr>
                                         <tr>
                                             <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>SerialNumber :</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.asset.serialNumber}</td>
+                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Funded By :</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.asset.fundedBy}</td>
                                         </tr>
+                                      
+                                        <tr>
+                                            <th scope="row"></th>
+                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Quantity :</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.asset.quantity}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <th scope="row"></th>
+                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Unit Price:</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.asset.unitPrice}</td>
+                                        </tr>
+                                       
                                         <tr>
                                             <th scope="row"></th>
                                             <td style={{ fontSize: "20px", fontWeight: "bold" }}>Asset condition :</td>
@@ -75,24 +89,24 @@ class ViewAsset extends Component {
                                         </tr>
                                         <tr>
                                             <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Project :</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.asset.project}</td>
+                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Category :</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.asset.categories}</td>
                                         </tr>
-                                        <tr>
+                                        {/* <tr>
                                             <th scope="row"></th>
                                             <td style={{ fontSize: "20px", fontWeight: "bold" }}>Status :</td>
                                             <td style={{ fontSize: "20px" }}>{this.state.asset.status}</td>
-                                        </tr>
-                                        <tr>
+                                        </tr> */}
+                                        {/* <tr>
                                             <th scope="row"></th>
                                             <td style={{ fontSize: "20px", fontWeight: "bold" }}>State :</td>
                                             <td style={{ fontSize: "20px" }}>{this.state.asset.states}</td>
-                                        </tr>
-                                        <tr>
+                                        </tr> */}
+                                        {/* <tr>
                                             <th scope="row"></th>
                                             <td style={{ fontSize: "20px", fontWeight: "bold" }}>Facility :</td>
                                             <td style={{ fontSize: "20px" }}>{this.state.asset.facility}</td>
-                                        </tr>
+                                        </tr> */}
                                         <tr>
                                             <th scope="row"></th>
                                             <td style={{ fontSize: "20px", fontWeight: "bold" }}>Location :</td>
@@ -101,8 +115,8 @@ class ViewAsset extends Component {
 
                                         <tr>
                                             <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Assignee :</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.asset.assignee} {this.state.asset.lastname}</td>
+                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Custodian :</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.asset.custodian} {this.state.asset.lastname}</td>
                                         </tr>
                                         <tr>
                                             <th scope="row"></th>
@@ -117,10 +131,10 @@ class ViewAsset extends Component {
                                 By signing, I acknowledge collecting the above asset stating it is in good state.
                                 <p>I also hereby accept the asset declaration and management terms and condition.</p>
                                 <p></p>
-                                <p>Sign:- ………………………………………………………………………………………………………………………………………………………………………………</p>
-                                <p>Date:- ……………………………………………………………………………………………………………………………………………………………………………… </p>
-                                <p>Acknowledged By Name:- …………………………………………………………………………………………………………………………</p>
-                                <p>Sign & Date:- ……………………………………………………………………………………………………………………………………………………………</p>
+                                <p>Sign:- ………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………</p>
+                                <p>Date:- ……………………………………………………………………………………………………………………………………………………………………………………………………………………………………………………… </p>
+                                <p>Acknowledged By Name:- ………………………………………………………………………………………………………………………………………………………………………………………………</p>
+                                <p>Sign & Date:- ……………………………………………………………………………………………………………………………………………………………………………………………………………………………………</p>
                             </div>
                             <br></br>
                             <br></br>

@@ -6,32 +6,28 @@ import { Visibility, Delete, Edit, CloudUploadOutlined, CloudDownloadOutlined, A
 import { CSVLink } from "react-csv";
 import axios from 'axios'
 import { BaseURL } from "../services";
+import ModalComponent from "./Modal/Modal";
+import emailjs from "@emailjs/browser"
 
 const headers = [
   // { label: "Id", key: "id" },
   { label: "Description", key: "description" },
   { label: "AssetId", key: "assetId" },
+  { label: "Manufacturer", key: "manufacturer" },
+  { label: "OtherBrand/Make", key: "otherBrand" },
+  { label: "Model Number", key: "modelNumber" },
   { label: "Serial Number", key: "serialNumber" },
   { label: "Date Received", key: "dateReceived" },
-  { label: "Funded By", key: "fundedBy" },
-  { label: "Model Number", key: "modelNumber" },
-  { label: "Quantity", key: "quantity" },
-  { label: "Unit Price", key: "unitPrice" },
   { label: "Purchase Price(N)", key: "purchasePrice" },
-  { label: "Total Cost (USD)", key: "totalCostUsd" },
-  { label: "Implementer", key: "implementer" },
-  { label: "Implementation Period", key: "implementationPeriod" },
-  { label: "Categories", key: "categories" },
-  { label: "Location", key: "location" },
-  { label: "Custodian", key: "custodian" },
+  { label: "FundedBy", key: "funder" },
+  { label: "Project", key: "project" },
   { label: "Condition", key: "condition" },
   { label: "State", key: "states" },
   { label: "Facility", key: "facility" },
   { label: "Location", key: "location" },
+  { label: "Assignee", key: "assignee" },
   { label: "Email", key: "email" },
-  { label: "Phone Number", key: "phone" },
-  // { label: "Grant", key: "grnatBy" },
-  // { label: "Status", key: "status" }
+  { label: "Status", key: "status" },
 ];
 
 const customStyles = {
@@ -53,42 +49,41 @@ const customStyles = {
 };
 
 
-class AssetList extends Component {
+class BinCardList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       user: JSON.parse(localStorage.getItem('user')).password,
       states: JSON.parse(localStorage.getItem('user')).states,
       userType: JSON.parse(localStorage.getItem('user')).userType,
-      assets: [],
+      bincards: [],
       currentPage: 1,
       recordPerPage: 100,
       search: '',
-      // open: false,
-      // deleteReason: "",
-      // assetId: "",
       loading: false
     };
 
     this.csvLinkEl = React.createRef();
     this.form = React.createRef();
 
-    this.createAsset = this.createAsset.bind(this);
-    this.editAsset = this.editAsset.bind(this);
-    this.deleteAsset = this.deleteAsset.bind(this);
-    this.viewAsset = this.viewAsset.bind(this);
+    // this.createAsset = this.createAsset.bind(this);
+    // this.editAsset = this.editAsset.bind(this);
+    // this.deleteAsset = this.deleteAsset.bind(this);
+    // this.viewBincard = this.viewBincard.bind(this);
   }
 
   componentDidMount() {
-    this.getAssetsByStatesPagination(this.state.currentPage);
+    this.getBincardsByStatesPagination(this.state.currentPage);
+
   }
 
-  getAssetsByStatesPagination(currentPage) {
+
+  getBincardsByStatesPagination(currentPage) {
     currentPage = currentPage - 1;
-    axios.get(`${BaseURL}/assets/${this.state.userType === 'User' ? this.state.states : ''}?page=${currentPage}&size=${this.state.recordPerPage}`)
+    axios.get(`${BaseURL}/bincards/${this.state.userType === 'User' ? this.state.states : ''}?page=${currentPage}&size=${this.state.recordPerPage}`)
       .then(response => response.data).then((data) => {
         this.setState({
-          assets: data.content,
+          bincards: data.content,
           totalPages: data.totalPages,
           totalElements: data.totalElements,
           currentPage: data.number + 1
@@ -104,7 +99,7 @@ class AssetList extends Component {
       if (!this.state.search) {
         this.getAssetsByStatesPagination(this.state.currentPage + 1);
       } else {
-        this.searchAsset(this.state.currentPage + 1)
+        this.searchBincard(this.state.currentPage + 1)
       }
     }
   };
@@ -113,10 +108,10 @@ class AssetList extends Component {
   showLastPage = () => {
     if (this.state.currentPage < Math.ceil(this.state.totalElements / this.state.recordPerPage)) {
       if (!this.state.search) {
-        this.getAssetsByStatesPagination(Math.ceil(this.state.totalElements / this.state.recordPerPage));
+        this.getBincardsByStatesPagination(Math.ceil(this.state.totalElements / this.state.recordPerPage));
       }
       else {
-        this.searchAsset(Math.ceil(this.state.totalElements / this.state.recordPerPage));
+        this.searchBincard(Math.ceil(this.state.totalElements / this.state.recordPerPage));
       }
     }
   };
@@ -126,9 +121,9 @@ class AssetList extends Component {
     let firstPage = 1;
     if (this.state.currentPage > firstPage) {
       if (!this.state.search) {
-        this.getAssetsByStatesPagination(firstPage);
+        this.getBincardsByStatesPagination(firstPage);
       } else {
-        this.searchAsset(firstPage)
+        this.searchBincard(firstPage)
       }
     }
   };
@@ -138,9 +133,9 @@ class AssetList extends Component {
     let prevPage = 1
     if (this.state.currentPage > prevPage) {
       if (!this.state.search) {
-        this.getAssetsByStatesPagination(this.state.currentPage - prevPage);
+        this.getBincardsByStatesPagination(this.state.currentPage - prevPage);
       } else {
-        this.searchAsset(this.state.currentPage - prevPage);
+        this.searchBincard(this.state.currentPage - prevPage);
       }
     }
   };
@@ -154,12 +149,12 @@ class AssetList extends Component {
   };
 
   //Search Method Logic
-  searchAsset = (currentPage) => {
+  searchBincard = (currentPage) => {
     currentPage = currentPage - 1;
-    axios.get(`${BaseURL}/assets/` + this.state.search + "?page=" + currentPage + "&size=" + this.state.recordPerPage)
+    axios.get(`${BaseURL}/bincards/` + this.state.search + "?page=" + currentPage + "&size=" + this.state.recordPerPage)
       .then(response => response.data).then((data) => {
         this.setState({
-          assets: data.content,
+          bincards: data.content,
           totalPages: data.totalPages,
           totalElements: data.totalElements,
           currentPage: data.number + 1
@@ -168,38 +163,41 @@ class AssetList extends Component {
   };
 
   //Reset Search Box
-  resetAsset = (currentPage) => {
+  resetBincard = (currentPage) => {
     this.setState({ "search": '' });
-    this.getAssetsByStatesPagination(currentPage);
+    this.getBincardsByStatesPagination(currentPage);
   };
 
   // deleteAsset(id) {
   //   this.setState({ open: true, assetId: id })
   // }
 
-  deleteAsset(id) {
-    const text = 'Are you sure you want to delete?'
-    if (window.confirm(text) === true) {
-      AssetService.deleteAsset(id).then((res) => {
-        this.setState({
-          assets: this.state.assets.filter((asset) => asset.id !== id),
-        });
-      });
-    }
-  }
+  // deleteAsset(id) {
+  //   const text = 'Are you sure you want to delete?'
+  //   if (window.confirm(text) === true) {
+  //     AssetService.deleteAsset(id).then((res) => {
+  //       this.setState({
+  //         assets: this.state.assets.filter((asset) => asset.id !== id),
+  //       });
+  //     });
+  //   }
+  // }
+
+
+
 
   // CRS-Bvnr-bSj9-rVGrW
-  editAsset(id) {
-    this.props.history.push(`/update-asset/${id}`);
+  editBincard(id) {
+    this.props.history.push(`/update-bin/${id}`);
   }
 
-  viewAsset(id) {
-    this.props.history.push(`/view-asset/${id}`);
-  }
+  // viewAsset(id) {
+  //   this.props.history.push(`/view-asset/${id}`);
+  // }
 
-  createAsset() {
-    this.props.history.push("/create-asset");
-  }
+  // createAsset() {
+  //   this.props.history.push("/create-asset");
+  // }
 
   cancel() {
     this.props.history.push("/dashboard");
@@ -210,37 +208,24 @@ class AssetList extends Component {
   }
 
   render() {
-    const { assets, currentPage, totalPages, recordPerPage, search } = this.state;
+    const { bincards, currentPage, totalPages, recordPerPage, search } = this.state;
     const user = JSON.parse(localStorage.getItem('user'));
     const users = JSON.parse(localStorage.getItem('user'))?.userType;
     const userType = user?.userType;
     const userLocation = user?.result?.states
-    const userAssets = this.state?.assets?.map((x) => x).filter((x) => x.states === userLocation)
-    const data = userType !== 'User' ? this.state.assets : userAssets;
+    const userBincards = this.state?.bincards?.map((x) => x).filter((x) => x.states === userLocation)
+    // const data = userType !== 'User' ? this.state.assets : userAssets;
+    const data = userType !== 'User' ? this.state.bincards : userBincards;
 
 
     const downloadReport = async () => {
       this.setState({ data: data }, () => {
         setTimeout(() => {
           this.csvLinkEl.current.link.click();
+
         });
       });
     }
-
-
-    // const downloadReport = async () => {
-    //   fetch('https://localhost:8080/api/v1/all-assets')
-    //   .then(response => response.blob())
-    //   .then(blob => {
-    //     const url = window.URL.createObjectURL(new Blob([blob]));
-    //     const link = document.createElement('a');
-    //     link.href = url;
-    //     link.setAttribute('download', 'file.csv');
-    //     document.body.appendChild(link);
-    //     this.csvLinkEl.current.link.click();
-    //     document.body.removeChild(link);
-    //   });
-    // }
 
 
     // const handleCloseModal = () => {
@@ -255,37 +240,29 @@ class AssetList extends Component {
 
     return (
       <React.Fragment>
-
         <div className="asset-list">
           {/* <Topbar /> */}
           {/* <div className="row"> */}
           <div className="top" style={{ backgroundColor: "#008000" }}>
             <div style={{ marginTop: "20px" }} >
-              <span className="logs">Assets</span>
+              <span className="logs">Bincards</span>
             </div>
             <div className="d-flex flex-row bd-highlight mb-3">
-              <input style={{ borderRadius: "12px", marginTop: "20px", marginRight: "15px", marginLeft: "150px" }} type="text" className="form-control" name="search" size="55" placeholder="Search by Custodian/Email/fundedBy/implementer/AssetId" value={search} onChange={this.searchBox} />
-              <button style={{ borderRadius: "12px", marginTop: "15px", marginBottom: "5px", backgroundColor: "#82E0AA", borderColor: "#82E0AA", color: "#D5F5E3" }} type="button" name="search" className=" btn btn-outline-primary" onClick={this.searchAsset}><SearchOutlined /></button>
+              <input style={{ borderRadius: "12px", marginTop: "20px", marginRight: "15px", marginLeft: "40px" }} type="text" className="form-control" name="search" size="100" placeholder="Search by PO Number/Issued To/Dispatched Location" value={search} onChange={this.searchBox} />
+              <button style={{ borderRadius: "12px", marginTop: "15px", backgroundColor: "#82E0AA", borderColor: "#82E0AA", color: "#D5F5E3" }} type="button" name="search" className=" btn btn-outline-primary" onClick={this.searchBincard}><SearchOutlined /></button>
             </div>
-            <div>
-              {/* <CDateRangePicker locale="en-US" size="lg" /> */}
-            </div>
-            {/* <div> <span style={{ fontWeight: "lighter", fontSize: "12px" }}>Date Received</span>
-              <input placeholder="Date Received" type="date" name="dateReceived" className="form-control" value={this.state.dateReceived} onChange={this.changeDateReceivedHandler} />
-            </div> */}
-            {/* <button style={{ margin: "15px", backgroundColor: "#82E0AA", borderColor: "#82E0AA", color: "#D5F5E3" }} type="button" name="search date" className=" btn btn-outline-primary" onClick={this.searchAsset}>Search</button> */}
             <div className="topRight">
-              {
+              {/* {
                 users !== 'User' &&
                 <button style={{ marginRight: "8px", margin: "10px", backgroundColor: "#82E0AA", borderColor: "#82E0AA", color: "#D5F5E3" }} className="btn btn-primary float-lg-end" onClick={this.createAsset.bind(this)} >
                   <AddCircleOutlineSharp />
                 </button>
-              }
-              {
+              } */}
+              {/* {
                 users !== 'User' &&
                 <button style={{ marginRight: "8px", backgroundColor: "#82E0AA", borderColor: "#82E0AA", color: "#D5F5E3" }} className="btn btn-primary float-lg-end" onClick={this.upload.bind(this)}>
                   <CloudUploadOutlined />
-                </button>}
+                </button>} */}
 
               <button style={{ marginRight: "8px", backgroundColor: "#82E0AA", borderColor: "#82E0AA", color: "#D5F5E3" }} className="btn btn-primary float-lg-end" onClick={this.cancel.bind(this)}>
                 <AccountBalanceOutlined />
@@ -299,72 +276,53 @@ class AssetList extends Component {
             </div>
           </div>
           <table className="table table-striped table-bordered">
-            <thead style={{ textAlign: "center", fontSize: "10px" }}>
+            <thead style={{ textAlign: "center", fontSize: "12px" }}>
               <tr>
                 <th>No.</th>
+                <th>Date</th>
+                <th>Warehouse name</th>
                 <th>Description</th>
-                <th>Category</th>
-                <th>Type</th>
-                <th>AssetId /Reg no.</th>
-                <th>SerialNumber/chassis no.</th>
-                <th>Date Received</th>
-                <th>Funder</th>
-                <th>Model</th>
-                <th>Quantity</th>
-                <th>Unit cost</th>
-                <th>Total cost</th>
-                <th>Total cost(USD)</th>
-                <th>Year of purchase</th>
-                <th>Implementer</th>
-                <th>Implementation period</th>
-                <th>State</th>
-                <th>Location</th>
-                <th>Custodian</th>
-                <th>Condition</th>
-                <th>Phone</th>
-                <th>Email</th>
-                <th>Status</th>
-                {/* <th>Remarks</th> */}
+                <th>Batch no</th>
+                <th>Manufacture Date</th>
+                <th>Expiry Date</th>
+                <th>Opening Balance</th>
+                <th>Closing Stock</th>
+                <th>Quantity Issued</th>
+                <th>Issued To</th>
+                <th>Issued To Email</th>
+                <th>Phone Number</th>
+                <th>Dispatched Location</th>
                 <th colSpan="3">Actions</th>
               </tr>
             </thead>
-            <tbody style={{ textAlign: "center", fontSize: "10px" }}>
-              {assets.length === 0 ?
-                <tr align="center"><td colSpan="23">No Record Found</td></tr> :
-                data?.map((asset, index) => (
-                  <tr key={asset?.id}>
+            <tbody style={{ textAlign: "center", fontSize: "11px" }}>
+              {bincards.length === 0 ?
+                <tr align="center"><td colSpan="20">No Record Found</td></tr> :
+                data?.map((bincard, index) => (
+                  <tr key={bincard?.id}>
                     <td>
                       {(recordPerPage * (currentPage - 1)) + index + 1}</td>
-                    <td>{asset.description}</td>
-                    <td>{asset.category}</td>
-                    <td>{asset.type}</td>
-                    <td>{asset.assetId}</td>
-                    <td>{asset.serialNumber}</td>
-                    <td>{asset.dateReceived}</td>
-                    <td>{asset.fundedBy}</td>
-                    <td>{asset.model}</td>
-                    <td>{asset.quantity}</td>
-                    <td>{asset.unitPrice}</td>
-                    <td>{asset.purchasePrice}</td>
-                    <td>{asset.totalCostUsd}</td>
-                    <td>{asset.yearOfPurchase}</td>
-                    <td>{asset.implementer}</td>
-                    <td>{asset.implementationPeriod}</td>
-                    <td>{asset.states}</td>
-                    <td>{asset.location}</td>
-                    <td>{asset.custodian}</td>
-                    <td>{asset.condition}</td>
-                    <td>{asset.email}</td>
-                    <td>{asset.phone}</td>
-                    <td>{asset.status}</td>
-                    {/* <td>{asset.remark}</td> */}
+                    <td>{bincard.date}</td>
+                    <td>{bincard.warehouseName}</td>
+                    <td>{bincard.description}</td>
+                    <td>{bincard.batchNo}</td>
+                    <td>{bincard.manufactureDate}</td>
+                    <td>{bincard.expiryDate}</td>
+                    <td>{bincard.openingBalance}</td>
+                    <td>{bincard.closingStock}</td>
+                    <td>{bincard.quantityIssued}</td>
+                    <td>{bincard.issuedTo}</td>
+                    <td>{bincard.issuedToEmail}</td>
+                    <td>{bincard.phone}</td>
+                    <td>{bincard.dispatchedLocation}</td>
 
-                    <td className="text-center"><Link to={`/update-asset/${asset.id}`} className="edit"><Edit /></Link></td>
-                    {
-                      users !== 'User' &&
-                      <td className="text-center" style={{ paddingLeft: "20px" }}><i onClick={() => this.deleteAsset(asset.id)} className="fa fa-trash" style={{ color: "red" }} ><Delete /> </i></td>
-                    }
-                    <td className="text-center" style={{ paddingLeft: "20px" }}><Link to={`/view-asset/${asset.id} `} className="view" style={{ alignItem: "center", color: "green" }}> <Visibility /></Link> </td>
+
+                    {/* <td className="text-center"><Link to={`/update-asset/${bincard.id}`} className="edit"><Edit /></Link></td> */}
+
+
+                    {/* <td className="text-center" style={{ paddingLeft: "20px" }}><i onClick={() => this.deleteAsset(asset.id)} className="fa fa-trash" style={{ color: "red" }} ><Delete /> </i></td> */}
+
+                    <td className="text-center" style={{ paddingLeft: "20px" }}><Link to={`/view-bincard/${bincard.id} `} className="view" style={{ alignItem: "center", color: "green" }}> <Visibility /></Link> </td>
                   </tr>
                 ))}
             </tbody>
@@ -385,18 +343,16 @@ class AssetList extends Component {
               </nav>
             </div>
           </table>
-
           <CSVLink
             headers={headers}
-            data={assets}
+            data={data}
             totalPages={totalPages}
-            filename={"asset.csv"}
+            filename="bincard.csv"
             target="_blank"
-            ref={this.csvLinkEl}
-          />
+            ref={this.csvLinkEl} />
         </div>
       </React.Fragment>
     )
   }
 }
-export default AssetList;
+export default BinCardList;

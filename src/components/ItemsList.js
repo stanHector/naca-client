@@ -202,17 +202,17 @@ class ItemsList extends Component {
             <div className="asset-list">
                 {/* <Topbar /> */}
                 {/* <div className="row"> */}
-                <div className="top" style={{ backgroundColor: "#CE5300" }}>
+                <div className="top" style={{ backgroundColor: "#008000" }}>
                     <div style={{ marginTop: "20px" }} >
                         <span className="logs">Items</span>
                     </div>
                     <div className="d-flex flex-row bd-highlight mb-3">
                         <input style={{ borderRadius: "12px", marginTop: "20px", marginRight: "15px", marginLeft: "40px" }} type="text" className="form-control" name="search" size="100" placeholder="Search by Requester email" value={search} onChange={this.searchBox} />
-                        <button style={{ borderRadius: "12px", marginTop: "15px", backgroundColor: "antiquewhite", borderColor: "antiquewhite", color: "chocolate" }} type="button" name="search" className=" btn btn-outline-primary" onClick={this.searchItem}><SearchOutlined /></button>
+                        <button style={{ borderRadius: "12px", marginTop: "15px", backgroundColor:"#82E0AA", borderColor:"#82E0AA", color:"#D5F5E3" }} type="button" name="search" className=" btn btn-outline-primary" onClick={this.searchItem}><SearchOutlined /></button>
                     </div>
                     <div className="topRight">
 
-                        <button style={{ marginRight: "8px", margin: "10px", backgroundColor: "antiquewhite", borderColor: "antiquewhite", color: "chocolate" }} className="btn btn-primary float-lg-end" onClick={this.createItem.bind(this)}>
+                        <button style={{ marginRight: "8px", margin: "10px", backgroundColor:"#82E0AA", borderColor:"#82E0AA", color:"#D5F5E3"  }} className="btn btn-primary float-lg-end" onClick={this.createItem.bind(this)}>
                             <AddCircleOutlineSharp />
                         </button>
 
@@ -222,11 +222,11 @@ class ItemsList extends Component {
                                 <CloudUploadOutlined />
                             </button>} */}
 
-                        <button style={{ marginRight: "8px", backgroundColor: "antiquewhite", borderColor: "antiquewhite", color: "chocolate" }} className="btn btn-primary float-lg-end" onClick={this.cancel.bind(this)}>
+                        <button style={{ marginRight: "8px", backgroundColor:"#82E0AA", borderColor:"#82E0AA", color:"#D5F5E3"  }} className="btn btn-primary float-lg-end" onClick={this.cancel.bind(this)}>
                             <AccountBalanceOutlined />
                         </button>
 
-                        <button style={{ marginRight: "8px", backgroundColor: "antiquewhite", borderColor: "antiquewhite", color: "chocolate" }} className="btn btn-primary float-lg-end" onClick={downloadReport}>
+                        <button style={{ marginRight: "8px", backgroundColor:"#82E0AA", borderColor:"#82E0AA", color:"#D5F5E3"  }} className="btn btn-primary float-lg-end" onClick={downloadReport}>
                             <CloudDownloadOutlined />
                         </button>
                     </div>
