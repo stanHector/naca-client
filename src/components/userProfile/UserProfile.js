@@ -12,8 +12,7 @@ class UserProfile extends Component {
             firstname: JSON.parse(localStorage.getItem('user'))?.firstname,
             lastname: JSON.parse(localStorage.getItem('user'))?.lastname,
             email: JSON.parse(localStorage.getItem('user'))?.email,
-            // password: JSON.parse(localStorage.getItem('user'))?.password,
-            states: JSON.parse(localStorage.getItem('user'))?.state,
+            states: JSON.parse(localStorage.getItem('user'))?.states,
             userType: JSON.parse(localStorage.getItem('user'))?.userType,
             loading: false,
         };
@@ -32,17 +31,10 @@ class UserProfile extends Component {
     updateUser = (e) => {
         e.preventDefault();
         this.setState({ loading: true })
-
         let user = {
             password: this.state.password,
         };
         if (this.state.password) {
-            // console.log("user ID profile:: " + this.state.id)
-            // console.log("user firstame profile:: " + this.state.firstname)
-            // console.log("user lastname profile:: " + this.state.lastname)
-            // console.log("user email profile:: " + this.state.email)
-            // console.log("user => " + JSON.stringify(user.id));
-
             UserService.updateUsers(user, this.state.id).then((res) => {
                 this.setState({ loading: false })
                 this.props.history.push("/dashboard");
@@ -67,7 +59,7 @@ class UserProfile extends Component {
 
         return (
             <React.Fragment>
-                <div className="container" style={{ marginTop: "15px", padding: "50px" }}>
+                <div className="container" style={{ marginTop: "150px", padding: "50px" }}>
                     <div className="row gutters">
                         <div className="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
                             <div className="card h-100">
@@ -93,7 +85,7 @@ class UserProfile extends Component {
                                 <div className="card-body">
                                     <div className="row gutters">
                                         <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12, text-center">
-                                            <h6 className="mb-2 text-primary" style={{fontWeight: "bold" }}>Personal Details</h6>
+                                            <h6 className="mb-2 text-primary" style={{ fontWeight: "bold" }}>Personal Details</h6>
                                         </div>
                                         <table class="table" >
                                             <tbody>
@@ -118,26 +110,25 @@ class UserProfile extends Component {
                                                     <td style={{ fontSize: "20px", fontWeight: "bold" }}>Location :</td>
                                                     <td style={{ fontSize: "20px" }}>{this.state.states}</td>
                                                 </tr>
-                                                {/* <tr>
-                                                    <th scope="row"></th>
-                                                    <td style={{ fontSize: "20px", fontWeight: "bold" }}>Role :</td>
-                                                    <td style={{ fontSize: "20px" }}>{this.state.userType}</td>
-                                                </tr> */}
+
+                                                <tr>
+                                                    <th scope="row" ></th>
+                                                    <td style={{ fontSize: "20px", fontWeight: "bold" }}>Password :</td>
+                                                    <input style={{ fontSize: "20px", marginRight: "50px", }} type="password" placeholder="Enter new password" name="password" className="form-control" value={this.state.password} onChange={this.changePasswordlHandler} />
+                                                </tr>
+
                                             </tbody>
                                         </table>
-                                        <div className="col-6">
-                                            <label style={{ marginLeft: "45px", fontWeight:"10px" }}>New password</label>
-                                            <input style={{ marginLeft: "45px", }}type="password" name="password" className="form-control" value={this.state.password} onChange={this.changePasswordlHandler} />
-                                        </div>
-                                        {/* <div className="d-flex flex-row bd-highlight mb-3">
-                                            <input style={{ borderRadius: "12px", marginTop: "20px", marginRight: "15px", marginLeft: "40px" }} type="text" className="form-control" name="search" size="100" placeholder="Search by asset tag or serial number or status" onChange={this.searchBox} />
-                                            <button style={{ borderRadius: "12px", marginTop: "15px" }} type="button" name="search" className=" btn btn-outline-primary" onClick={this.searchAsset}>SearchOutlined </button>
+                                        {/* <div className="col-6">
+                                            <label style={{ marginLeft: "45px", fontWeight: "10px" }}>New password</label>
+                                            <input style={{ marginLeft: "45px", }} type="password" name="password" className="form-control" value={this.state.password} onChange={this.changePasswordlHandler} />
                                         </div> */}
+
                                         <div className="form-row text-center" style={{ marginTop: "12px" }}>
                                             <div className="col-12">
                                                 <button className="btn btn-outline-success" onClick={this.updateUser} disabled={this.state.loading}>
                                                     {this.state.loading && <div className="spinner-border text-light" role="status"></div>}
-                                                    Update Password
+                                                    Change password
                                                 </button>
                                                 <button className="btn btn-outline-danger" onClick={this.cancel.bind(this)} style={{ margin: "22px" }}>Cancel</button>
                                             </div>

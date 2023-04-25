@@ -59,6 +59,7 @@ class InventoryList extends Component {
   getInventoriesByStatesPagination(currentPage) {
     currentPage = currentPage - 1;
     axios.get(`${BaseURL}/inventories/${this.state.userType === 'User' ? this.state.states : ''}?page=${currentPage}&size=${this.state.recordPerPage}`)
+    // axios.get(`${BaseURL}/inventories/`+ "?page=" + currentPage + "&size=" + this.state.recordPerPage)
       .then(response => response.data).then((data) => {
         this.setState({
           inventories: data.content,
@@ -145,8 +146,8 @@ class InventoryList extends Component {
     this.getInventoriesByStatesPagination(currentPage);
   };
 
-  // deleteAsset(id) {
-  //   this.setState({ open: true, assetId: id })
+  // deleteInventory(id) {
+  //   this.setState({ open: true, inventoryId: id })
   // }
 
   deleteInventory(id) {
@@ -211,7 +212,8 @@ class InventoryList extends Component {
           {/* <div className="row"> */}
           <div className="top" style={{ backgroundColor: "#008000" }}>
             <div style={{ marginTop: "20px" }} >
-              <span className="logs">Inventories</span>
+              {/* <span className="logs">Inventories</span> */}
+              <span className="logs">Health Commodities</span>
             </div>
             <div className="d-flex flex-row bd-highlight mb-3">
               <input style={{ borderRadius: "12px", marginTop: "20px", marginRight: "15px", marginLeft: "40px" }} type="text" className="form-control" name="search" size="100" placeholder="Search by Warehouse /Batch No/Expiry date/Donor" value={search} onChange={this.searchBox} />

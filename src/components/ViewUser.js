@@ -50,6 +50,12 @@ class ViewUser extends Component {
                     </tr>
 
                     <tr>
+                      <th scope="row"></th>
+                      <td style={{ fontSize: "20px", fontWeight: "bold" }}>Department :</td>
+                      <td style={{ fontSize: "20px" }}>{this.state.user.department}</td>
+                    </tr>
+
+                    <tr>
                       <th scope="row" ></th>
                       <td style={{ fontSize: "20px", fontWeight: "bold" }}>Location :</td>
                       <td style={{ fontSize: "20px" }}>{this.state.user.states}</td>

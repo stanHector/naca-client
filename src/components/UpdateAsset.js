@@ -10,37 +10,41 @@ class UpdateAsset extends Component {
             assetId: "",
             serialNumber: "",
             dateReceived: "",
-            fundedBy: "",
-            modelNumber: "",
+            funder: "",
+            model: "",
             quantity: "",
-            unitPrice: "",
+            states: "",
             purchasePrice: "",
             totalCostUsd: "",
             implementer: "",
             implementationPeriod: "",
-            categories: "",
+            category: "",
             location: "",
             custodian: "",
             condition: "",
+            emailAddress:"",
+            phone:"",
+            status:"",
             loading: false,
         };
 
         this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
         this.changeAssetIDHandler = this.changeAssetIDHandler.bind(this);
-        this.changeManufacturerHandler = this.changeManufacturerHandler.bind(this);
-        this.changeOtherBrandHandler = this.changeOtherBrandHandler.bind(this);
+        // this.changeManufacturerHandler = this.changeManufacturerHandler.bind(this);
+        // this.changeOtherBrandHandler = this.changeOtherBrandHandler.bind(this);
         this.changeModelHandler = this.changeModelHandler.bind(this);
         this.changeSerialnumberHandler = this.changeSerialnumberHandler.bind(this);
         this.changeDateReceivedHandler = this.changeDateReceivedHandler.bind(this);
         this.changePurchasedPriceHandler = this.changePurchasedPriceHandler.bind(this);
         this.handleFunderHandler = this.handleFunderHandler.bind(this);
-        this.changeProjectHandler = this.changeProjectHandler.bind(this);
+        // this.changeProjectHandler = this.changeProjectHandler.bind(this);
         this.handleConditionHandler = this.handleConditionHandler.bind(this);
         this.handleStatesHandler = this.handleStatesHandler.bind(this);
-        this.changeFacilityHandler = this.changeFacilityHandler.bind(this);
+        // this.changeFacilityHandler = this.changeFacilityHandler.bind(this);
         this.changeLocationHandler = this.changeLocationHandler.bind(this);
         this.handleCustodianHandler = this.handleCustodianHandler.bind(this);
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
+        this.changePhoneHandler = this.changePhoneHandler.bind(this);
         this.changeStatusHandler = this.changeStatusHandler.bind(this);
 
         this.updateAsset = this.updateAsset.bind(this);
@@ -54,18 +58,20 @@ class UpdateAsset extends Component {
                 assetId: asset.assetId,
                 serialNumber: asset.serialNumber,
                 dateReceived: asset.dateReceived,
-                fundedBy: asset.fundedBy,
-                modelNumber: asset.modelNumber,
-                quantity: asset.quantity,
-                unitPrice: asset.unitPrice,
+                funder: asset.funder,
+                model: asset.model,
+                states: asset.states,
+                // unitPrice: asset.unitPrice,
                 purchasePrice: asset.purchasePrice,
-                totalCostUsd: asset.totalCostUsd,
+                // totalCostUsd: asset.totalCostUsd,
                 implementer: asset.implementer,
                 implementationPeriod: asset.implementationPeriod,
-                categories: asset.categories,
+                category: asset.category,
                 location: asset.location,
                 custodian: asset.custodian,
                 condition: asset.condition,
+                emailAddress: asset.emailAddress,
+                phone:asset.phone,
                 status: asset.status,
             });
         })
@@ -87,10 +93,12 @@ class UpdateAsset extends Component {
             // purchasedPrice: this.state.purchasedPrice,
             // funder: this.state.funder,
             // project: this.state.project,
+            states: this.state.states,
             condition: this.state.condition,
             location: this.state.location,
             custodian: this.state.custodian,
-            // email: this.state.email,
+            emailAddress: this.state.emailAddress,
+            phone: this.state.phone,
             status: this.state.status,
 
         };
@@ -105,9 +113,9 @@ class UpdateAsset extends Component {
         this.setState({ description: event.target.value });
     };
 
-    changeOtherBrandHandler = (event) => {
-        this.setState({ otherBrand: event.target.value });
-    };
+    // changeOtherBrandHandler = (event) => {
+    //     this.setState({ otherBrand: event.target.value });
+    // };
 
     changeDateReceivedHandler = (event) => {
         this.state({ dateReceived: event.target.value });
@@ -118,7 +126,7 @@ class UpdateAsset extends Component {
     };
 
     changeModelHandler = (event) => {
-        this.setState({ modelNumber: event.target.value });
+        this.setState({ model: event.target.value });
     };
 
     changePurchasedPriceHandler = (event) => {
@@ -132,9 +140,9 @@ class UpdateAsset extends Component {
         this.setState({ states: event.target.value });
     };
 
-    changeFacilityHandler = (event) => {
-        this.setState({ facility: event.target.value });
-    };
+    // changeFacilityHandler = (event) => {
+    //     this.setState({ facility: event.target.value });
+    // };
 
     changeLocationHandler = (event) => {
         this.setState({ location: event.target.value });
@@ -153,23 +161,23 @@ class UpdateAsset extends Component {
     };
 
     changeEmailHandler = (event) => {
-        this.setState({ email: event.target.value });
+        this.setState({ emailAddress: event.target.value });
     };
 
-    // handlelocationHandler = (event) => {
-    //     this.setState({ location: event.target.value });
-    // };
+    changePhoneHandler = (event) => {
+        this.setState({ phone: event.target.value });
+    };
     changeSerialnumberHandler = (event) => {
         this.setState({ serialNumber: event.target.value });
     };
 
-    changeManufacturerHandler = (event) => {
-        this.setState({ manufacturer: event.target.value });
-    };
+    // changeManufacturerHandler = (event) => {
+    //     this.setState({ manufacturer: event.target.value });
+    // };
 
-    changeProjectHandler = (event) => {
-        this.setState({ project: event.target.value });
-    };
+    // changeProjectHandler = (event) => {
+    //     this.setState({ project: event.target.value });
+    // };
 
 
     cancel() {
@@ -209,9 +217,9 @@ class UpdateAsset extends Component {
                                                 <input placeholder="Other Brand/Make" name="otherBrand" className="form-control" value={this.state.otherBrand} onChange={this.changeOtherBrandHandler} />
                                             </div> */}
 
-                                            <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Model Number</label>
+                                            <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Model</label>
                                             <div className="col-sm-12">
-                                                <input name="modelNumber" className="form-control" value={this.state.modelNumber} onChange={this.changeModelHandler} />
+                                                <input name="modelNumber" className="form-control" value={this.state.model} onChange={this.changeModelHandler} />
                                             </div>
 
                                             <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Serial Number</label>
@@ -226,32 +234,32 @@ class UpdateAsset extends Component {
 
                                             <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Funded By</label>
                                             <div className="col-sm-12">
-                                                <input name="fundedBy" className="form-control" value={this.state.fundedBy} />
+                                                <input name="fundedBy" className="form-control" value={this.state.funder} />
                                             </div>
-
+{/* 
                                             <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Quantity </label>
                                             <div className="col-sm-12">
                                                 <input placeholder="Quantity" name="quantity" className="form-control" value={this.state.quantity} />
-                                            </div>
+                                            </div> */}
 
-                                            <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Unit Price </label>
+                                            {/* <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Unit Price </label>
                                             <div className="col-sm-12">
-                                                <input placeholder="Unit Price" name="unitPrice" className="form-control" value={this.state.unitPrice} />
-                                            </div>
+                                                <input placeholder="Unit Price" name="unitPrice" className="form-control" value={this.state.purchasePrice} />
+                                            </div> */}
 
                                             <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Purchased Price(N) </label>
                                             <div className="col-sm-12">
                                                 <input placeholder="Purchased Price" name="purchasePrice" className="form-control" value={this.state.purchasePrice} />
                                             </div>
 
-                                            <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Total cost (USD) </label>
+                                            {/* <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Total cost (USD) </label>
                                             <div className="col-sm-12">
                                                 <input placeholder="Total Cost in USD" name="totalCostUsd" className="form-control" value={this.state.totalCostUsd} />
-                                            </div>
+                                            </div> */}
 
                                             <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Category </label>
                                             <div className="col-sm-12">
-                                                <input placeholder="Category" name="categories" className="form-control" value={this.state.categories} />
+                                                <input placeholder="Category" name="category" className="form-control" value={this.state.category} />
                                             </div>
                                             <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Asset Condition </label>
                                             <div className="col-sm-12">
@@ -287,18 +295,18 @@ class UpdateAsset extends Component {
 
                                             <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Custodian</label>
                                             <div className="col-sm-12">
-                                                <input name="assignee" className="form-control" value={this.state.custodian} onChange={this.handleAssigneeHandler} />
+                                                <input name="custodian" className="form-control" value={this.state.custodian} onChange={this.handleCustodianHandler} />
                                             </div>
 
-                                            {/* <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Email</label>
+                                            <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Email</label>
                                             <div className="col-sm-12">
-                                                <input name="email" type="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler} />
-                                            </div> */}
+                                                <input name="emailAddress" type="email" className="form-control" value={this.state.emailAddress} onChange={this.changeEmailHandler} />
+                                            </div>
 
-                                            {/* <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Email</label>
+                                            <label style={{ marginTop: "10px", marginLeft: "15px", fontWeight: "bold" }}>Phone</label>
                                             <div className="col-sm-12">
-                                                <input name="email" type="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler} />
-                                            </div> */}
+                                                <input name="phone" type="number" className="form-control" value={this.state.phone} onChange={this.changePhoneHandler} />
+                                            </div>
 
                                             <div className="col-12" style={{ marginTop: "15px" }}>
                                                 <select className="form-select" onChange={this.changeStatusHandler}>

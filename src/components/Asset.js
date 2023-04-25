@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import '../App.css'
 import AssetService from "../services/AssetService";
 import { Link } from 'react-router-dom';
-import { Visibility, Delete, Edit, CloudUploadOutlined, CloudDownloadOutlined, AddCircleOutlineSharp, AccountBalanceOutlined, SearchOutlined } from '@material-ui/icons'
+import { Visibility, Delete, Edit, CloudDownloadOutlined, AccountBalanceOutlined, SearchOutlined } from '@material-ui/icons'
 import { CSVLink } from "react-csv";
 import axios from 'axios'
 import { BaseURL } from "../services";
-import ModalComponent from "./Modal/Modal";
-import emailjs from "@emailjs/browser"
 
 const headers = [
   // { label: "Id", key: "id" },
@@ -30,26 +28,8 @@ const headers = [
   { label: "Status", key: "status" },
 ];
 
-const customStyles = {
-  overlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    backgroundColor: 'rgba(0, 0, 0, .5)',
-    transition: 'opacity .2s ease',
-  },
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
 
-
-class AssetList extends Component {
+class Asset extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,9 +40,6 @@ class AssetList extends Component {
       currentPage: 1,
       recordPerPage: 500,
       search: '',
-      open: false,
-      deleteReason: "",
-      assetId: "",
       loading: false
     };
 
@@ -79,7 +56,6 @@ class AssetList extends Component {
     this.getAssetsByStatesPagination(this.state.currentPage);
 
   }
-
 
   getAssetsByStatesPagination(currentPage) {
     currentPage = currentPage - 1;
@@ -154,7 +130,8 @@ class AssetList extends Component {
   //Search Method Logic
   searchAsset = (currentPage) => {
     currentPage = currentPage - 1;
-    axios.get(`${BaseURL}/assets/` + this.state.search + "?page=" + currentPage + "&size=" + this.state.recordPerPage)
+    axios.get(`${BaseURL}/assets/${this.state.userType === 'User' ? this.state.search : ''}?page=${currentPage}&size=${this.state.recordPerPage}`)
+      // axios.get(`${BaseURL}/assets/` + this.state.search + "?page=" + currentPage + "&size=" + this.state.recordPerPage)
       .then(response => response.data).then((data) => {
         this.setState({
           assets: data.content,
@@ -214,10 +191,11 @@ class AssetList extends Component {
     const userType = user?.userType;
     const userLocation = user?.result?.states
     const userAssets = this.state?.assets?.map((x) => x).filter((x) => x.states === userLocation);
-    const data = userType !== 'User' ? this.state.assets : userAssets;
+    const mainAssets = this.state.assets?.map((x) => x).filter((x) => x.category === "Asset");
+
+    const data = userType !== 'User' ? mainAssets : mainAssets;
 
     const downloadReport = async () => {
-
       this.setState({ data: data }, () => {
         setTimeout(() => {
           this.csvLinkEl.current.link.click();
@@ -233,34 +211,22 @@ class AssetList extends Component {
           {/* <div className="row"> */}
           <div className="top" style={{ backgroundColor: "#CE5300" }}>
             <div style={{ marginTop: "20px" }} >
-              <span className="logs">General</span>
+              <span className="logs">Assets</span>
             </div>
             <div className="d-flex flex-row bd-highlight mb-3">
               <input style={{ borderRadius: "12px", marginTop: "20px", marginRight: "15px", marginLeft: "40px" }} type="text" className="form-control" name="search" size="100" placeholder="Search by Manufacturer or Assignee or Email or Description or SerialNumber or AssetID" value={search} onChange={this.searchBox} />
               <button style={{ borderRadius: "12px", marginTop: "15px", backgroundColor: "antiquewhite", borderColor: "antiquewhite", color: "chocolate" }} type="button" name="search" className=" btn btn-outline-primary" onClick={this.searchAsset}><SearchOutlined /></button>
             </div>
             <div className="topRight">
-              {
-                users !== 'User' &&
-                <button style={{ marginRight: "8px", margin: "10px", backgroundColor: "antiquewhite", borderColor: "antiquewhite", color: "chocolate" }} className="btn btn-primary float-lg-end" onClick={this.createAsset.bind(this)} >
-                  <AddCircleOutlineSharp />
-                </button>
-              }
-              {
-                users !== 'User' &&
-                <button style={{ marginRight: "8px", backgroundColor: "antiquewhite", borderColor: "antiquewhite", color: "chocolate" }} className="btn btn-primary float-lg-end" onClick={this.upload.bind(this)}>
-                  <CloudUploadOutlined />
-                </button>}
 
               <button style={{ marginRight: "8px", backgroundColor: "antiquewhite", borderColor: "antiquewhite", color: "chocolate" }} className="btn btn-primary float-lg-end" onClick={this.cancel.bind(this)}>
                 <AccountBalanceOutlined />
               </button>
-              {
-                users !== 'User' &&
-                <button style={{ marginRight: "8px", backgroundColor: "antiquewhite", borderColor: "antiquewhite", color: "chocolate" }} className="btn btn-primary float-lg-end" onClick={downloadReport}>
-                  <CloudDownloadOutlined />
-                </button>
-              }
+
+              <button style={{ marginRight: "8px", backgroundColor: "antiquewhite", borderColor: "antiquewhite", color: "chocolate" }} className="btn btn-primary float-lg-end" onClick={downloadReport}>
+                <CloudDownloadOutlined />
+              </button>
+
             </div>
           </div>
           <table className="table table-striped table-bordered">
@@ -316,11 +282,11 @@ class AssetList extends Component {
                     <td>{asset.phone}</td>
                     <td>{asset.status}</td>
 
-                    <td className="text-center"><Link to={`/update-asset/${asset.id}`} className="edit"><Edit /></Link></td>
-                    {
+                    {/* <td className="text-center"><Link to={`/update-asset/${asset.id}`} className="edit"><Edit /></Link></td> */}
+                    {/* {
                       users !== 'User' &&
                       <td className="text-center" style={{ paddingLeft: "20px" }}><i onClick={() => this.deleteAsset(asset.id)} className="fa fa-trash" style={{ color: "red" }} ><Delete /> </i></td>
-                    }
+                    } */}
                     <td className="text-center" style={{ paddingLeft: "20px" }}><Link to={`/view-asset/${asset.id} `} className="view" style={{ alignItem: "center", color: "green" }}> <Visibility /></Link> </td>
                   </tr>
                 ))}
@@ -354,4 +320,4 @@ class AssetList extends Component {
     )
   }
 }
-export default AssetList;
+export default Asset;

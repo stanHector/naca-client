@@ -5,7 +5,6 @@ import BinCardService from "../services/BinCardService";
 class ViewBinCard extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             id: this.props.match.params.id,
             bincard: {

@@ -5,6 +5,7 @@ import InventoryService from "../services/InventoryService";
 class ViewInventory extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             id: this.props.match.params.id,
             inventory: {
@@ -30,86 +31,45 @@ class ViewInventory extends Component {
 
         return (
             <div>
-                <div className="container" style={{ marginTop: "30px" }}>
+                <div className="container" style={{ marginTop: "150px", padding: "50px" }}>
                     <div className="row">
-                        <div className="card col-md-8 offset-md-2 offset-md-2">
-                            <h3 className="text-center" style={{ margin: "15px", fontWeight: "bold" }}>Inventory Detail</h3>
+                        <div className="card col-md-6 offset-md-3 offset-md-3">
+                            <h3 className="text-center" style={{ margin: "15px", fontWeight: "bold" }}>Detail</h3>
                             <div className="card-body" style={{ marginLeft: "15px", marginRight: "15px", fontFamily: "cursive" }}>
                                 <table class="table" >
                                     <tbody>
 
                                         <tr>
                                             <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Warehouse name :</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.inventory.warehouseName}</td>
+                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Date Of Purchase :</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.inventory.dateOfPurchase}</td>
                                         </tr>
                                         <tr>
                                             <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Description :</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.inventory.description}</td>
+                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Source :</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.inventory.source}</td>
                                         </tr>
                                         <tr>
                                             <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Batch Number :</td>
+                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Name Of Article :</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.inventory.nameOfArticle}</td>
+                                        </tr>
+
+                                        <tr >
+                                            <th scope="row"></th>
+                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Batch No :</td>
                                             <td style={{ fontSize: "20px" }}>{this.state.inventory.batchNo}</td>
                                         </tr>
-
-                                        <tr >
-                                            <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Manufacture Date:</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.inventory.manufactureDate}</td>
-                                        </tr>
-                                        <tr >
-                                            <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Expiry Date :</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.inventory.expiryDate}</td>
-                                        </tr>
-
-                                        <tr >
-                                            <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Unit :</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.inventory.unit}</td>
-                                        </tr>
                                         <tr>
                                             <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Stock State :</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.inventory.stockState}</td>
+                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Purchase Order Number :</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.inventory.purchaseOrderNumber}</td>
                                         </tr>
 
                                         <tr>
                                             <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Opening Balance:</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.inventory.openingBalance}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Quantity Received:</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.inventory.quantityReceived}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Closing Stock:</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.inventory.closingStock}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Stock On Hand:</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.inventory.stockOnHand}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Reporting Month:</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.inventory.reportingMonth}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Donor:</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.inventory.donor}</td>
+                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Received Quantity:</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.inventory.receivedQuantity}</td>
                                         </tr>
 
 

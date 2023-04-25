@@ -31,7 +31,7 @@ class UpdateUser extends Component {
         lastname: user.lastname,
         email: user.email,
         userType: user.userType,
-        //   states: user.states
+        department: user.department
       });
     })
   }
@@ -43,8 +43,11 @@ class UpdateUser extends Component {
       firstname: this.state.firstname,
       lastname: this.state.lastname,
       email: this.state.email,
+      department: this.state.department,
       userType: this.state.userType,
+      //   states: this.state.states,
     };
+    // console.log("user => " + JSON.stringify(user));
 
     UserService.updateUser(user, this.state.id).then((res) => {
       this.props.history.push("/dashboard");
@@ -99,6 +102,12 @@ class UpdateUser extends Component {
                         <input type="email" name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler} />
                       </div>
 
+                      <label style={{ marginTop: "10px" }}> Department </label>
+                      <div className="col-sm-12">
+                        <input type="email" name="email" className="form-control" value={this.state.department} onChange={this.changeEmailHandler} />
+                      </div>
+
+
                       {/* <label style={{ marginTop: "10px" }}> Password </label>
                       <div className="col-sm-12">
                         <input
@@ -124,59 +133,6 @@ class UpdateUser extends Component {
                           <option userType="2">User</option>
                         </select>
                       </div>
-
-                      {/* <div
-                        className="col-12"
-                        style={{ marginTop: "45px", marginBottom: "45px" }}
-                      >
-                        <label
-                          className="visually-hidden"
-                        >
-                          State
-                        </label>
-                        <select
-                          className="form-select"
-                          onChange={this.handleSelectUserStates}
-                        >
-  <option defaultValue>Select state</option>
-                                                    <option states="1">FCT</option>
-                                                    <option states="2">Abia</option>
-                                                    <option states="3">Adamawa</option>
-                                                    <option states="4">Akwa-Ibom</option>
-                                                    <option states="5">Anambra</option>
-                                                    <option states="6">Bauchi</option>
-                                                    <option states="7">Bayelsa</option>
-                                                    <option states="8">Benue</option>\
-                                                    <option states="9">Borno</option>
-                                                    <option states="10">Cross-River</option>
-                                                    <option states="11">Delta</option>
-                                                    <option states="12">Ebonyi</option>
-                                                    <option states="13">Edo</option>
-                                                    <option states="14">Ekiti</option>
-                                                    <option states="15">Enugu</option>
-                                                    <option states="16">Gombe</option>
-                                                    <option states="17">Imo</option>
-                                                    <option states="18">Jigawa</option>
-                                                    <option states="19">Kaduna</option>
-                                                    <option states="20">Kano</option>
-                                                    <option states="21">Katsina</option>
-                                                    <option states="22">Kebbi</option>
-                                                    <option states="23">Kogi</option>
-                                                    <option states="24">Kwara</option>
-                                                    <option states="25">Lagos</option>
-                                                    <option states="26">Nasarawa</option>
-                                                    <option states="27">Niger</option>
-                                                    <option states="28">Ogun</option>
-                                                    <option states="29">Ondo</option>
-                                                    <option states="31">Oyo</option>
-                                                    <option states="32">Plateau</option>
-                                                    <option states="33">Rivers</option>
-                                                    <option states="34">Sokoto</option>
-                                                    <option states="35">Taraba</option>
-                                                    <option states="36">Yobe</option>
-                                                    <option states="37">Zamfara</option>
-                        </select>
-                      </div> */}
                     </div>
 
                     <div className="form-row text-center" style={{ marginTop: "12px" }} >

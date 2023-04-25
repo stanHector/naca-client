@@ -1,4 +1,3 @@
-import { event } from "jquery";
 import React, { Component } from "react";
 import AssetService from "../services/AssetService";
 
@@ -9,41 +8,41 @@ class CreatAsset extends Component {
     this.state = {
       description: "",
       assetId: "",
+      manufacturer: "",
+      otherBrand: "",
+      modelNumber: "",
       serialNumber: "",
       dateReceived: "",
-      fundedBy: "",
-      modelNumber: "",
-      quantity: "",
-      unitPrice: "",
       purchasedPrice: "",
-      totalCostUsd: "",
-      implementer: "",
-      implementationPeriod: "",
-      categories: "",
-      location: "",
-      custodian: "",
+      funder: "",
+      project: "",
       condition: "",
+      states: "",
+      facility: "",
+      location: "",
+      assignee: "",
+      email: "",
       status: "",
       loading: false,
     };
 
     this.changeDescriptionHandler = this.changeDescriptionHandler.bind(this);
     this.changeAssetIDHandler = this.changeAssetIDHandler.bind(this);
+    this.changeManufacturerHandler = this.changeManufacturerHandler.bind(this);
+    this.changeOtherBrandHandler = this.changeOtherBrandHandler.bind(this);
+    this.changeModelHandler = this.changeModelHandler.bind(this);
     this.changeSerialnumberHandler = this.changeSerialnumberHandler.bind(this);
     this.changeDateReceivedHandler = this.changeDateReceivedHandler.bind(this);
-    this.handleFunderHandler = this.handleFunderHandler.bind(this);
-    this.changeModelHandler = this.changeModelHandler.bind(this);
-    this.changeQuantityHandler = this.changeQuantityHandler.bind(this);
-    this.changeUnitPriceHandler = this.changeUnitPriceHandler.bind(this);
     this.changePurchasedPriceHandler = this.changePurchasedPriceHandler.bind(this);
-    this.changeTotalCostUsdHandler = this.changeTotalCostUsdHandler.bind(this);
-    this.changeImplementerHandler = this.changeImplementerHandler.bind(this);
-    this.changeImplementationPeriodHandler = this.changeImplementationPeriodHandler.bind(this);
-    this.changeCategoriesHandler = this.changeCategoriesHandler.bind(this);
-    this.changeLocationHandler = this.changeLocationHandler.bind(this);
-    this.handleCustodianHandler = this.handleCustodianHandler.bind(this);
+    this.handleFunderHandler = this.handleFunderHandler.bind(this);
+    this.changeProjectHandler = this.changeProjectHandler.bind(this);
     this.handleConditionHandler = this.handleConditionHandler.bind(this);
-    // this.changeStatusHandler = this.changeStatusHandler.bind(this);
+    this.handleStatesHandler = this.handleStatesHandler.bind(this);
+    this.changeFacilityHandler = this.changeFacilityHandler.bind(this);
+    this.changeLocationHandler = this.changeLocationHandler.bind(this);
+    this.handleAssigneeHandler = this.handleAssigneeHandler.bind(this);
+    this.changeEmailHandler = this.changeEmailHandler.bind(this);
+    this.changeStatusHandler = this.changeStatusHandler.bind(this);
 
     this.addAsset = this.addAsset.bind(this);
   }
@@ -54,110 +53,91 @@ class CreatAsset extends Component {
     let asset = {
       description: this.state.description,
       assetId: this.state.assetId,
+      manufacturer: this.state.manufacturer,
+      otherBrand: this.state.otherBrand,
+      modelNumber: this.state.modelNumber,
       serialNumber: this.state.serialNumber,
       dateReceived: this.state.dateReceived,
-      fundedBy: this.state.fundedBy,
-      modelNumber: this.state.modelNumber,
-      quantity: this.state.quantity,
-      unitPrice: this.state.unitPrice,
       purchasedPrice: this.state.purchasedPrice,
-      totalCostUsd: this.state.totalCostUsd,
-      implementer: this.state.implementer,
-      implementationPeriod: this.state.implementationPeriod,
-      categories: this.state.categories,
-      location: this.state.location,
-      custodian: this.state.custodian,
+      funder: this.state.funder,
+      project: this.state.project,
       condition: this.state.condition,
-
-      // email: this.state.email,
-      // status: this.state.status,
-
+      states: this.state.states,
+      facility: this.state.facility,
+      location: this.state.location,
+      assignee: this.state.assignee,
+      email: this.state.email,
+      status: this.state.status,
 
     };
     if (this.state.description) {
-      if (this.state.assetId) {
-        if (this.state.serialNumber) {
-          if (this.state.dateReceived) {
-            if (this.state.fundedBy) {
-              if (this.state.modelNumber) {
-                if (this.state.quantity) {
-                  if (this.state.unitPrice) {
-                    if (this.state.purchasedPrice) {
-                      if (this.state.totalCostUsd) {
-                        if (this.state.implementer) {
-                          if (this.state.implementationPeriod) {
-                            if (this.state.categories) {
-                              if (this.state.location) {
-                                if (this.state.condition) {
-                                  AssetService.createAsset(asset).then((res) => {
-                                    this.setState({ loading: false })
-                                    this.props.history.push("/assets");
-                                  });
-                                } else {
-                                  alert('Enter asset condition!')
+      if (this.state.otherBrand) {
+        if (this.state.funder) {
+          if (this.state.assetId) {
+            if (this.state.serialNumber) {
+              if (this.state.location) {
+                if (this.state.manufacturer) {
+                  if (this.state.modelNumber) {
+                    if (this.state.status) {
+                      if (this.state.facility) {
+                        if (this.state.condition) {
+                          if (this.state.states) {
+                            if (this.state.dateReceived) {
+                              if (this.state.purchasedPrice) {
+                                AssetService.createAsset(asset).then((res) => {
                                   this.setState({ loading: false })
-                                }
-
+                                  this.props.history.push("/assets");
+                                });
                               } else {
-                                alert('Select location!')
-                                this.setState({ loading: false })
+                                alert('Enter purchased Price!')
                               }
-
                             } else {
-                              alert('Enter category!')
+                              alert('Enter Date Received!')
                               this.setState({ loading: false })
                             }
-                          }
-                          else {
-                            alert('Enter Implementation period!')
+                          } else {
+                            alert('Enter state!')
                             this.setState({ loading: false })
                           }
-
                         } else {
-                          alert('Enter Implementer!')
+                          alert('Enter asset condition!')
                           this.setState({ loading: false })
                         }
-
                       } else {
-                        alert('Enter total cost in USD!')
+                        alert('Enter facility!')
                         this.setState({ loading: false })
                       }
-                    } else {
-                      alert('Enter purchased Price!')
+                    }
+                    else {
+                      alert('Select status!')
                       this.setState({ loading: false })
                     }
-
                   } else {
-                    alert('Enter Unit Price!')
+                    alert('Select modelNumber!')
                     this.setState({ loading: false })
                   }
-
                 } else {
-                  alert('Enter Quantity!')
+                  alert('Select Manufacturer!')
                   this.setState({ loading: false })
                 }
-
               } else {
-                alert('Select modelNumber!')
+                alert('Select location!')
                 this.setState({ loading: false })
               }
             } else {
-              alert('Enter funder! ')
+              alert('Enter Serial number!');
               this.setState({ loading: false })
             }
-
-
           } else {
-            alert('Enter Date Received!')
+            alert('Enter AssetID! ')
             this.setState({ loading: false })
           }
         } else {
-          alert('Enter Serial number!');
+          alert('Enter funder! ')
           this.setState({ loading: false })
         }
-
       } else {
-        alert('Enter AssetID! ')
+        alert('Enter other brand!')
         this.setState({ loading: false })
       }
     } else {
@@ -171,97 +151,72 @@ class CreatAsset extends Component {
     this.setState({ description: event.target.value });
   };
 
-  changeAssetIDHandler = (event) => {
-    this.setState({ assetId: event.target.value });
-  };
-
-  changeSerialnumberHandler = (event) => {
-    this.setState({ serialNumber: event.target.value });
+  changeOtherBrandHandler = (event) => {
+    this.setState({ otherBrand: event.target.value });
   };
 
   changeDateReceivedHandler = (event) => {
     this.setState({ dateReceived: event.target.value });
   };
 
-  handleFunderHandler = (event) => {
-    this.setState({ fundedBy: event.target.value });
+  changeAssetIDHandler = (event) => {
+    this.setState({ assetId: event.target.value });
   };
-
 
   changeModelHandler = (event) => {
     this.setState({ modelNumber: event.target.value });
   };
 
-  changeQuantityHandler = (event) => {
-    this.setState({ quantity: event.target.value });
-  };
-
-  changeUnitPriceHandler = (event) => {
-    this.setState({ unitPrice: event.target.value });
-  };
-
-
   changePurchasedPriceHandler = (event) => {
     this.setState({ purchasedPrice: event.target.value })
   }
 
-  changeTotalCostUsdHandler = (event) => {
-    this.setState({ totalCostUsd: event.target.value })
-  }
+  changeStatusHandler = (event) => {
+    this.setState({ status: event.target.value });
+  };
 
-  changeImplementerHandler = (event) => {
-    this.setState({ implementer: event.target.value })
-  }
-  changeImplementationPeriodHandler = (event) => {
-    this.setState({ implementationPeriod: event.target.value })
-  }
+  handleStatesHandler = (event) => {
+    this.setState({ states: event.target.value });
+  };
 
-  changeCategoriesHandler = (event) => {
-    this.setState({ categories: event.target.value })
-  }
+  changeFacilityHandler = (event) => {
+    this.setState({ facility: event.target.value });
+  };
 
   changeLocationHandler = (event) => {
     this.setState({ location: event.target.value });
   };
 
-
-  handleCustodianHandler = (event) => {
-    this.setState({ custodian: event.target.value });
-  };
-
-
   handleConditionHandler = (event) => {
     this.setState({ condition: event.target.value });
   };
 
+  handleFunderHandler = (event) => {
+    this.setState({ funder: event.target.value });
+  };
 
-  // changeStatusHandler = (event) => {
-  //   this.setState({ status: event.target.value });
-  // };
+  handleAssigneeHandler = (event) => {
+    this.setState({ assignee: event.target.value });
+  };
 
-
-  // changeFacilityHandler = (event) => {
-  //   this.setState({ facility: event.target.value });
-  // };
-
-
-
-  // changeEmailHandler = (event) => {
-  //   this.setState({ email: event.target.value });
-  // };
+  changeEmailHandler = (event) => {
+    this.setState({ email: event.target.value });
+  };
 
   // handlelocationHandler = (event) => {
   //     this.setState({ location: event.target.value });
   // };
+  changeSerialnumberHandler = (event) => {
+    this.setState({ serialNumber: event.target.value });
+  };
 
+  changeManufacturerHandler = (event) => {
+    this.setState({ manufacturer: event.target.value });
+  };
 
-  // changeManufacturerHandler = (event) => {
-  //   this.setState({ manufacturer: event.target.value });
-  // };
-
-  // changeProjectHandler = (event) => {
-  //   this.setState({ project: event.target.value });
-  // };
+  changeProjectHandler = (event) => {
+    this.setState({ project: event.target.value });
+  };
 
   cancel() {
     this.props.history.push("/assets");
@@ -272,7 +227,7 @@ class CreatAsset extends Component {
       <React.Fragment>
         <div
           className="container"
-          style={{ marginTop: "15px" }}>
+          style={{ marginTop: "15px", padding: "50px" }}>
           <div className="row">
             <div className="card col-md-6 offset-md-3 offset-md-3">
               <h3 className="text-center" style={{ marginTop: "15px", fontWeight: "bold" }}> Create Asset</h3>
@@ -292,12 +247,23 @@ class CreatAsset extends Component {
                         </div>
 
                         <div className="col-sm-12" style={{ marginTop: "10px" }}>
+                          <input placeholder="Manufacturer" name="manufacturer" className="form-control" value={this.state.manufacturer} onChange={this.changeManufacturerHandler} />
+                        </div>
+
+                        <div className="col-sm-12" style={{ marginTop: "10px" }}>
+                          <input placeholder="Other Brand/Make" name="otherBrand" className="form-control" value={this.state.otherBrand} onChange={this.changeOtherBrandHandler} />
+                        </div>
+
+                        <div className="col-sm-12" style={{ marginTop: "10px" }}>
+                          <input placeholder="ModelNumber" name="modelNumber" className="form-control" value={this.state.modelNumber} onChange={this.changeModelHandler} />
+                        </div>
+
+                        <div className="col-sm-12" style={{ marginTop: "10px" }}>
                           <input placeholder="Serial Number" name="serialNumber" className="form-control" value={this.state.serialNumber} onChange={this.changeSerialnumberHandler} />
                         </div>
 
-                        <div className="col-sm-12" >
-                        <span style={{fontWeight:"lighter", fontSize:"12px"}}>Date Received</span>
-                          <input placeholder="Date Received" type="date" name="dateReceived" className="form-control" value={this.state.dateReceived} onChange={this.changeDateReceivedHandler} />
+                        <div className="col-sm-12" style={{ marginTop: "10px" }}>
+                          <input placeholder="Date Received" name="dateReceived" className="form-control" value={this.state.dateReceived} onChange={this.changeDateReceivedHandler} />
                         </div>
 
                         <div className="col-sm-12" style={{ marginTop: "10px" }}>
@@ -305,49 +271,13 @@ class CreatAsset extends Component {
                         </div>
 
                         <div className="col-sm-12" style={{ marginTop: "10px" }}>
-                          <input placeholder="Model Number" name="modelNumber" className="form-control" value={this.state.modelNumber} onChange={this.changeModelHandler} />
-                        </div>
-
-                        <div className="col-sm-12" style={{ marginTop: "10px" }}>
-                          <input placeholder="Quantity" name="quantity" className="form-control" value={this.state.quantity} onChange={this.changeQuantityHandler} />
-                        </div>
-
-                        <div className="col-sm-12" style={{ marginTop: "10px" }}>
-                          <input placeholder="Unit Price" name="unitPrice" className="form-control" value={this.state.unitPrice} onChange={this.changeUnitPriceHandler} />
-                        </div>
-
-                        <div className="col-sm-12" style={{ marginTop: "10px" }}>
                           <input placeholder="Purchased Price" name="purchasedPrice" className="form-control" value={this.state.purchasedPrice} onChange={this.changePurchasedPriceHandler} />
-                        </div>
-
-                        <div className="col-sm-12" style={{ marginTop: "10px" }}>
-                          <input placeholder="Total Cost USD" name="totalCostUsd" className="form-control" value={this.state.totalCostUsd} onChange={this.changeTotalCostUsdHandler} />
-                        </div>
-
-                        <div className="col-sm-12" style={{ marginTop: "10px" }}>
-                          <input placeholder="Implementer" name="location" className="form-control" value={this.state.implementer} onChange={this.changeImplementerHandler} />
-                        </div>
-
-                        <div className="col-sm-12" style={{ marginTop: "10px" }}>
-                          <input placeholder="Implementation Period" name="location" className="form-control" value={this.state.implementationPeriod} onChange={this.changeImplementationPeriodHandler} />
-                        </div>
-
-                        <div className="col-sm-12" style={{ marginTop: "10px" }}>
-                          <input placeholder="Categories" name="location" className="form-control" value={this.state.categories} onChange={this.changeCategoriesHandler} />
-                        </div>
-
-                        <div className="col-sm-12" style={{ marginTop: "10px" }}>
-                          <input placeholder="Location" name="location" className="form-control" value={this.state.location} onChange={this.changeLocationHandler} />
-                        </div>
-
-                        <div className="col-sm-12" style={{ marginTop: "10px" }}>
-                          <input placeholder="Custodian" name="custodian" className="form-control" value={this.state.custodian} onChange={this.handleCustodianHandler} />
                         </div>
 
                         <div className="col-12" style={{ marginTop: "15px" }}>
                           <select className="form-select" onChange={this.handleConditionHandler}>
                             <option defaultValue>Asset Condition</option>
-                            <option condition="1">A1(New)</option>
+                            <option condition="1">A1</option>
                             <option condition="2">A2</option>
                             <option condition="3">A3</option>
                             <option condition="4">F1</option>
@@ -355,9 +285,8 @@ class CreatAsset extends Component {
                             <option condition="6">F3</option>
                           </select>
                         </div>
-                      </div>
 
-                      {/* <div className="col-12" style={{ marginTop: "15px", marginBottom: "15px" }} >
+                        <div className="col-12" style={{ marginTop: "15px", marginBottom: "15px" }} >
                           <select className="form-select" onChange={this.handleStatesHandler}>
                             <option defaultValue>Select state</option>
                             <option states="1">FCT</option>
@@ -397,23 +326,27 @@ class CreatAsset extends Component {
                             <option states="36">Yobe</option>
                             <option states="37">Zamfara</option>
                           </select>
-                        </div> */}
-
-                      {/* <div className="row">
+                        </div>
+                      </div>
+                      <div className="row">
                         <div className="col-sm-6" style={{ marginTop: "10px" }}>
                           <input placeholder="Facility" name="facility" className="form-control" value={this.state.facility} onChange={this.changeFacilityHandler} />
                         </div>
 
-                       
-                      </div> */}
-                      {/* <div className="row">
-                       
+                        <div className="col-sm-6" style={{ marginTop: "10px" }}>
+                          <input placeholder="Location" name="location" className="form-control" value={this.state.location} onChange={this.changeLocationHandler} />
+                        </div>
+                      </div>
+                      <div className="row">
+                        <div className="col-sm-6" style={{ marginTop: "10px" }}>
+                          <input placeholder="Assignee fullname" name="assignee" className="form-control" value={this.state.assignee} onChange={this.handleAssigneeHandler} />
+                        </div>
 
                         <div className="col-sm-6" style={{ marginTop: "10px" }}>
                           <input placeholder="Email" name="email" className="form-control" value={this.state.email} onChange={this.changeEmailHandler} />
                         </div>
-                      </div> */}
-                      {/* <div className="row">
+                      </div>
+                      <div className="row">
                         <div className="col-12" style={{ marginTop: "15px" }}>
                           <select className="form-select" onChange={this.changeStatusHandler}>
                             <option defaultValue>Status</option>
@@ -422,7 +355,7 @@ class CreatAsset extends Component {
                             <option checkedAsset="3">Returned</option>
                           </select>
                         </div>
-                      </div> */}
+                      </div>
                     </div>
                     <div className="form-row text-center" style={{ marginTop: "12px" }}>
                       <div className="col-12">

@@ -6,27 +6,19 @@ export default function FeatureInfo({ isLoading, allAssets, items }) {
     const user = JSON.parse(localStorage.getItem('user'));
     const states = JSON.parse(localStorage.getItem('user'))?.states;
     const allStateAsset = allAssets?.map((state) => state.states)?.filter((x) => x === user?.states)
-    const totalDeployedAsset = allAssets?.map((x) => x.status)?.filter((x) => x === 'Deployed');
+    const totalDeployedAsset = allAssets?.map((x) => x.category)?.filter((x) => x === 'Asset');
+    const totalHeealthCommodities = allAssets?.map((x) => x.category)?.filter((x) => x === 'Health Commodities');
 
     const stateAsset = allAssets.map((x) => x).filter((x) => x.states === states);
-    const totalStateDeployedAsset = stateAsset.map((x) => x.status).filter((x) => x === 'Deployed');
+    const totalStateDeployedAsset = stateAsset.map((x) => x.category).filter((x) => x === 'Asset');
+    const healthCommodities = stateAsset.map((x) => x.category).filter((x) => x === 'Health Commodities');
 
-    const usersCount = items?.map((state) => state.states)?.filter((x) => x === user?.states)
-    const totalDeployedItems = items?.map((x) => x.status)?.filter((x) => x === 'Deployed');
+    // const usersCount = items?.map((state) => state.states)?.filter((x) => x === user?.states)
+    // const totalDeployedItems = items?.map((x) => x.status)?.filter((x) => x === 'Deployed');
 
-    const stateItem = items.map((x) => x).filter((x) => x.states === states);
-    const itemsDeployCount = stateItem.map((x) => x.status).filter((x) => x === 'Deployed');
+    // const stateItem = items.map((x) => x).filter((x) => x.states === states);
+    // const itemsDeployCount = stateItem.map((x) => x.status).filter((x) => x === 'Deployed');
 
-    const myStyle = {
-        //         backgroundImage: 
-        //  "url('https://media.geeksforgeeks.org/wp-content/uploads/rk.png')",
-        height: '100vh',
-        marginTop: '-70px',
-        fontSize: '50px',
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundColor: " #33FF71 "
-    };
     return (
 
         <>
@@ -40,12 +32,12 @@ export default function FeatureInfo({ isLoading, allAssets, items }) {
                         </div>
                     </div> */}
 
-                <div className={isLoading ? "featuredLoading featuredItem" : "featuredItem"} style={{ backgroundColor: "#229954 " }}>
+                <div className={isLoading ? "featuredLoading featuredItem" : "featuredItem"} style={{ backgroundColor: "#9FE2BF " }}>
                     {
                         isLoading ? (<div className="spinner-border text-primary dashboard-spinner" role="status"></div>)
                             :
                             (<>
-                                <span className="featuredTitle">Total Assets</span>
+                                <span className="featuredTitle">General</span>
                                 <div className="text-right" style={{ textAlign: "right", marginTop: "45px" }}>
                                     <span className="featuredMoney">{user?.userType === "Admin" ? allAssets?.length : allStateAsset?.length}</span>
 
@@ -53,11 +45,11 @@ export default function FeatureInfo({ isLoading, allAssets, items }) {
                             </>)
                     }
                 </div>
-                <div className={isLoading ? "featuredLoading featuredItem" : "featuredItem"} style={{ backgroundColor: "#27AE60" }}>
+                <div className={isLoading ? "featuredLoading featuredItem" : "featuredItem"} style={{ backgroundColor: "#40E0D0" }}>
                     {
                         isLoading ? (<div className="spinner-border text-primary dashboard-spinner" role="status"></div>)
                             : (<>
-                                <span className="featuredTitle">Total Assets Deployed</span>
+                                <span className="featuredTitle">Total Assets</span>
                                 <div className="text-right" style={{ textAlign: "right", marginTop: "45px" }}>
                                     <span className="featuredMoney">{user?.userType === "Admin" ? totalDeployedAsset?.length : totalStateDeployedAsset?.length}</span>
 
@@ -66,14 +58,14 @@ export default function FeatureInfo({ isLoading, allAssets, items }) {
                     }
                 </div>
 
-                <div className={isLoading ? "featuredLoading featuredItem" : "featuredItem"} style={{ backgroundColor: "#52BE80" }}>
+                <div className={isLoading ? "featuredLoading featuredItem" : "featuredItem"} style={{ backgroundColor: "#6495ED" }}>
                     {
                         isLoading ? (<div className="spinner-border text-primary dashboard-spinner" role="status"></div>)
                             : (
                                 <>
-                                    <span className="featuredTitle">Total Items Deployed</span>
+                                    <span className="featuredTitle">Total Health Commodites</span>
                                     <div className="text-right" style={{ textAlign: "right", marginTop: "45px" }}>
-                                        <span className="featuredMoney">{user?.userType === "Admin" ? totalDeployedItems?.length : itemsDeployCount?.length}</span>
+                                        <span className="featuredMoney">{user?.userType === "Admin" ? totalHeealthCommodities?.length : healthCommodities?.length}</span>
                                     </div>
                                 </>
                             )

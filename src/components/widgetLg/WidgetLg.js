@@ -6,7 +6,7 @@ const WidgetLg = ({ isLoading, assets }) => {
 
     return (
         <div className="widgetLg">
-            <AssetsList assets={assets} isLoading={isLoading} />
+            <AssetsList tickets={assets} isLoading={isLoading} />
         </div>
     );
 }

@@ -31,7 +31,7 @@ class ViewAsset extends Component {
                 <div className="container" style={{ marginTop: "15px" }}>
                     <div className="row">
                         <div className="card col-md-8 offset-md-2 offset-md-2">
-                            <h3 className="text-center" style={{ margin: "15px",  fontWeight: "bold" }}>Asset Detail</h3>
+                            <h3 className="text-center" style={{ margin: "15px", fontWeight: "bold" }}>Asset Detail</h3>
                             <div className="card-body" style={{ marginLeft: "15px", marginRight: "15px", fontFamily: "cursive" }}>
                                 <table class="table" >
                                     <tbody>
@@ -55,8 +55,8 @@ class ViewAsset extends Component {
 
                                         <tr>
                                             <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>ModelNumber:</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.asset.modelNumber}</td>
+                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Model:</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.asset.model}</td>
                                         </tr>
 
                                         <tr >
@@ -67,21 +67,15 @@ class ViewAsset extends Component {
                                         <tr>
                                             <th scope="row"></th>
                                             <td style={{ fontSize: "20px", fontWeight: "bold" }}>Funded By :</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.asset.fundedBy}</td>
-                                        </tr>
-                                      
-                                        <tr>
-                                            <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Quantity :</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.asset.quantity}</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.asset.funder}</td>
                                         </tr>
 
                                         <tr>
                                             <th scope="row"></th>
                                             <td style={{ fontSize: "20px", fontWeight: "bold" }}>Unit Price:</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.asset.unitPrice}</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.asset.purchasePrice}</td>
                                         </tr>
-                                       
+
                                         <tr>
                                             <th scope="row"></th>
                                             <td style={{ fontSize: "20px", fontWeight: "bold" }}>Asset condition :</td>
@@ -90,29 +84,18 @@ class ViewAsset extends Component {
                                         <tr>
                                             <th scope="row"></th>
                                             <td style={{ fontSize: "20px", fontWeight: "bold" }}>Category :</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.asset.categories}</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.asset.category}</td>
                                         </tr>
-                                        {/* <tr>
-                                            <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Status :</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.asset.status}</td>
-                                        </tr> */}
-                                        {/* <tr>
+                                        <tr>
                                             <th scope="row"></th>
                                             <td style={{ fontSize: "20px", fontWeight: "bold" }}>State :</td>
                                             <td style={{ fontSize: "20px" }}>{this.state.asset.states}</td>
-                                        </tr> */}
-                                        {/* <tr>
-                                            <th scope="row"></th>
-                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Facility :</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.asset.facility}</td>
-                                        </tr> */}
+                                        </tr>
                                         <tr>
                                             <th scope="row"></th>
                                             <td style={{ fontSize: "20px", fontWeight: "bold" }}>Location :</td>
                                             <td style={{ fontSize: "20px" }}>{this.state.asset.location}</td>
                                         </tr>
-
                                         <tr>
                                             <th scope="row"></th>
                                             <td style={{ fontSize: "20px", fontWeight: "bold" }}>Custodian :</td>
@@ -121,8 +104,21 @@ class ViewAsset extends Component {
                                         <tr>
                                             <th scope="row"></th>
                                             <td style={{ fontSize: "20px", fontWeight: "bold" }}>Email :</td>
-                                            <td style={{ fontSize: "20px" }}>{this.state.asset.email}</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.asset.emailAddress}</td>
                                         </tr>
+
+                                        <tr>
+                                            <th scope="row"></th>
+                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Phone :</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.asset.phone}</td>
+                                        </tr>
+
+
+                                        {/* <tr>
+                                            <th scope="row"></th>
+                                            <td style={{ fontSize: "20px", fontWeight: "bold" }}>Status :</td>
+                                            <td style={{ fontSize: "20px" }}>{this.state.asset.status}</td>
+                                        </tr> */}
                                     </tbody>
                                 </table>
 

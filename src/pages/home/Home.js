@@ -6,7 +6,6 @@ import WidgetLg from '../../components/widgetLg/WidgetLg'
 
 const Home = ({ allAssets, assets, isLoading, items }) => {
     // console.log("assets: " + assets)
-    
     return (
         <>
             <div className="home">

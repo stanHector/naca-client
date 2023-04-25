@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import "./topbar.css"
-import imgs from '../topbar/Nacaas.png'
-import img from '../topbar/logos.png'
+import imgs from '../topbar/logfhi.png'
 import { LocationCityOutlined, Person } from '@material-ui/icons'
 
 class Topbar extends Component {
@@ -18,16 +17,15 @@ class Topbar extends Component {
             <div className="topbar">
                 <div className="topbarWrapper" style={{ width: "%" }}>
                     <div className="topLeft">
-                        <img src={imgs} alt="img-logo" className="topAvatar" />
-                        <span className="logo" style={{ margin: "22px", fontFamily: "Candara", marginLeft: "50px", color:"#F8F9F9" , fontSize:"30px"}}>NACA - Global Fund Inventory & Asset Management System</span>
-                        <img src={img} alt="img-logo" className="topAvatar" style={{height:"35px"}} />
+                        {/* <img src={imgs} alt="img-logo" className="topAvatar" /> */}
+                        <span className="logo" style={{ margin: "10px", fontFamily: "Candara" }}>NACA-GlobalFund Asset and Inventory Management System</span>
                     </div>
 
                     <div className="topRight" >
-                        <span className="logo1" style={{ margin: "22px", color: "#F8F9F9", fontWeight: "bolder" }}> <LocationCityOutlined style={{ color: "#F8F9F9", marginRight: "12px" }} />{userState}</span>
+                        <span className="logo1" style={{ margin: "22px", color: "white", fontWeight: "bolder" }}> <LocationCityOutlined style={{ color: "", marginRight: "12px" }} />{userState}</span>
 
-                        <span style={{ color: "#F8F9F9" , margin:"12px"}}>
-                            <Person /> {lastname} {firstname}</span>
+                        <span style={{ color: "antiquewhite" , margin:"12px"}}>
+                            <Person /> {firstname} {lastname} </span>
                     </div>
                 </div>
             </div>

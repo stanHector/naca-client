@@ -2,54 +2,36 @@ import React, { Component } from "react";
 import '../App.css'
 import AssetService from "../services/AssetService";
 import { Link } from 'react-router-dom';
-import { Visibility, Delete, Edit, CloudUploadOutlined, CloudDownloadOutlined, AddCircleOutlineSharp, AccountBalanceOutlined, SearchOutlined } from '@material-ui/icons'
+import { Visibility, Delete, Edit, CloudDownloadOutlined, AccountBalanceOutlined, SearchOutlined } from '@material-ui/icons'
 import { CSVLink } from "react-csv";
 import axios from 'axios'
 import { BaseURL } from "../services";
-import ModalComponent from "./Modal/Modal";
-import emailjs from "@emailjs/browser"
 
 const headers = [
   // { label: "Id", key: "id" },
   { label: "Description", key: "description" },
+  { label: "Category", key: "category" },
+  { label: "Type", key: "type" },
   { label: "AssetId", key: "assetId" },
-  { label: "Manufacturer", key: "manufacturer" },
-  { label: "OtherBrand/Make", key: "otherBrand" },
-  { label: "Model Number", key: "modelNumber" },
   { label: "Serial Number", key: "serialNumber" },
   { label: "Date Received", key: "dateReceived" },
-  { label: "Purchase Price(N)", key: "purchasePrice" },
   { label: "FundedBy", key: "funder" },
-  { label: "Project", key: "project" },
-  { label: "Condition", key: "condition" },
+  { label: "Model", key: "model" },
+  { label: "Purchase Price(N)", key: "purchasePrice" },
   { label: "State", key: "states" },
-  { label: "Facility", key: "facility" },
+  { label: "Year of Purchase", key: "yearOfPurchase" },
+  { label: "Implementer", key: "implementer" },
+  { label: "implementation period", key: "implementationPeriod" },
   { label: "Location", key: "location" },
-  { label: "Assignee", key: "assignee" },
-  { label: "Email", key: "email" },
+  { label: "Custodian", key: "custodian" },
+  { label: "Condition", key: "condition" },
+  { label: "Email", key: "emailAddress" },
+  { label: "Phone", key: "phone" },
   { label: "Status", key: "status" },
 ];
 
-const customStyles = {
-  overlay: {
-    position: 'fixed',
-    top: 0,
-    left: 0,
-    backgroundColor: 'rgba(0, 0, 0, .5)',
-    transition: 'opacity .2s ease',
-  },
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
 
-
-class AssetList extends Component {
+class HealthCommodities extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -58,11 +40,8 @@ class AssetList extends Component {
       userType: JSON.parse(localStorage.getItem('user')).userType,
       assets: [],
       currentPage: 1,
-      recordPerPage: 500,
+      recordPerPage: 1000,
       search: '',
-      open: false,
-      deleteReason: "",
-      assetId: "",
       loading: false
     };
 
@@ -214,10 +193,14 @@ class AssetList extends Component {
     const userType = user?.userType;
     const userLocation = user?.result?.states
     const userAssets = this.state?.assets?.map((x) => x).filter((x) => x.states === userLocation);
-    const data = userType !== 'User' ? this.state.assets : userAssets;
+
+    const mainAssets = this.state.assets?.map((x) => x).filter((x) => x.category === "Health Commodities");
+
+
+    const data = userType !== 'User'  ? mainAssets : mainAssets;
+
 
     const downloadReport = async () => {
-
       this.setState({ data: data }, () => {
         setTimeout(() => {
           this.csvLinkEl.current.link.click();
@@ -233,25 +216,13 @@ class AssetList extends Component {
           {/* <div className="row"> */}
           <div className="top" style={{ backgroundColor: "#CE5300" }}>
             <div style={{ marginTop: "20px" }} >
-              <span className="logs">General</span>
+              <span className="logs">Health Commodites</span>
             </div>
             <div className="d-flex flex-row bd-highlight mb-3">
               <input style={{ borderRadius: "12px", marginTop: "20px", marginRight: "15px", marginLeft: "40px" }} type="text" className="form-control" name="search" size="100" placeholder="Search by Manufacturer or Assignee or Email or Description or SerialNumber or AssetID" value={search} onChange={this.searchBox} />
               <button style={{ borderRadius: "12px", marginTop: "15px", backgroundColor: "antiquewhite", borderColor: "antiquewhite", color: "chocolate" }} type="button" name="search" className=" btn btn-outline-primary" onClick={this.searchAsset}><SearchOutlined /></button>
             </div>
             <div className="topRight">
-              {
-                users !== 'User' &&
-                <button style={{ marginRight: "8px", margin: "10px", backgroundColor: "antiquewhite", borderColor: "antiquewhite", color: "chocolate" }} className="btn btn-primary float-lg-end" onClick={this.createAsset.bind(this)} >
-                  <AddCircleOutlineSharp />
-                </button>
-              }
-              {
-                users !== 'User' &&
-                <button style={{ marginRight: "8px", backgroundColor: "antiquewhite", borderColor: "antiquewhite", color: "chocolate" }} className="btn btn-primary float-lg-end" onClick={this.upload.bind(this)}>
-                  <CloudUploadOutlined />
-                </button>}
-
               <button style={{ marginRight: "8px", backgroundColor: "antiquewhite", borderColor: "antiquewhite", color: "chocolate" }} className="btn btn-primary float-lg-end" onClick={this.cancel.bind(this)}>
                 <AccountBalanceOutlined />
               </button>
@@ -290,7 +261,8 @@ class AssetList extends Component {
               </tr>
             </thead>
             <tbody style={{ textAlign: "center", fontSize: "11px" }}>
-              {assets.length === 0 ?
+              {/* {asset.length === 0 ? */}
+                {data.length === 0 ?
                 <tr align="center"><td colSpan="20">No Record Found</td></tr> :
                 data?.map((asset, index) => (
                   <tr key={asset?.id}>
@@ -312,7 +284,7 @@ class AssetList extends Component {
                     <td>{asset.location}</td>
                     <td>{asset.custodian}</td>
                     <td>{asset.condition}</td>
-                    <td>{asset.emailAddress}</td>
+                    <td>{asset.email}</td>
                     <td>{asset.phone}</td>
                     <td>{asset.status}</td>
 
@@ -354,4 +326,4 @@ class AssetList extends Component {
     )
   }
 }
-export default AssetList;
+export default HealthCommodities;

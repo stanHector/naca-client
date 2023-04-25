@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import './upload.css'
-import { BaseURL } from '../../services/index'
+import {BaseURL} from '../../services/index'
 
 class UploadAsset extends Component {
     constructor(props) {
@@ -58,7 +58,7 @@ class UploadAsset extends Component {
                                         <input onChange={this.handleChange} type="file" />
                                     </div>
                                     <div className="text-center m-t-20">
-                                        <button style={{ backgroundColor: "#008000", borderColor: "#008000" }} className="btn btn-lg btn-primary btn-login" type="submit" disabled={this.state.loading}>
+                                        <button className="btn btn-outline-primary" type="submit" disabled={this.state.loading}>
                                             {this.state.loading && <div className="spinner-border text-light" role="status"></div>}
                                             Upload Now
                                         </button>

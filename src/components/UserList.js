@@ -4,7 +4,7 @@ import { Visibility, Delete, Edit, AddCircleOutlineSharp, AccountBalanceOutlined
 import '../App.css';
 import axios from 'axios';
 import UserService from "../services/UserService";
-import { BaseURL } from '../services/index'
+import {BaseURL} from '../services/index'
 
 
 class UserList extends Component {
@@ -95,7 +95,7 @@ class UserList extends Component {
   searchUser = (currentPage) => {
     currentPage = currentPage - 1;
     if (this.state.search) {
-      axios.get(`${BaseURL}/users/` + this.state.search + "?page=" + currentPage + "&size=" + this.state.recordPerPage)
+      axios.get(`${BaseURL}/users/`+ this.state.search + "?page=" + currentPage + "&size=" + this.state.recordPerPage)
         .then(response => response.data).then((data) => {
           this.setState({
             users: data.content,
@@ -124,7 +124,7 @@ class UserList extends Component {
       });
     }
   }
-
+  
   changePage = (event) => {
     this.setState({
       [event.target.name]: parseInt(event.target.value),
@@ -157,24 +157,24 @@ class UserList extends Component {
         <div className="list">
           <div className="row">
             {/* <div className="row"> */}
-            <div className="top" style={{ backgroundColor: "#008000" }}>
+            <div className="top" style={{ backgroundColor: "#CE5300" }}>
               <div className="topLeft">
                 {/* <img src={imgs} alt="img-logo" className="topAvatar" /> */}
                 <span className="log" style={{ margin: "22px", }}>Users</span>
               </div>
               <div class="d-flex flex-row bd-highlight mb-3">
                 <input style={{ borderRadius: "12px", marginTop: "20px", marginBottom: "6px", marginRight: "15px", height: "40px" }} type="text" className="form-control" name="search" size="100" placeholder="Search by email or firstname or state" value={search} onChange={this.searchBox} />
-                <button style={{ borderRadius: "12px", marginTop: "15px", backgroundColor:"#82E0AA", borderColor:"#82E0AA", color:"#D5F5E3" }} type="button" name="search" className=" btn btn-outline-primary" onClick={this.searchUser}><SearchOutlined /></button>
+                <button style={{ borderRadius: "12px", marginTop: "15px", backgroundColor: "antiquewhite", borderColor:"antiquewhite", color:"chocolate" }} type="button" name="search" className=" btn btn-outline-primary" onClick={this.searchUser}><SearchOutlined /></button>
                 {/* <button style={{ borderRadius: "12px", marginTop: "15px", marginLeft: "10px" }} className=" btn btn-outline-danger" onClick={this.cancelSearch.bind(this)}><Cancel /></button> */}
               </div>
 
               <div className="topRight">
-                <Link to={"/create-user"} style={{ margin: "10px", backgroundColor:"#82E0AA", borderColor:"#82E0AA", color:"#D5F5E3"  }} className="btn btn-primary float-lg-end">
+                <Link to={"/create-user"} style={{ margin: "10px", backgroundColor: "antiquewhite", borderColor:"antiquewhite", color:"chocolate" }} className="btn btn-primary float-lg-end">
                   <AddCircleOutlineSharp />
                   {/* Create User */}
                 </Link>
                 <div className="topRight">
-                  <button style={{ marginRight: "8px",backgroundColor:"#82E0AA", borderColor:"#82E0AA", color:"#D5F5E3" }} className="btn btn-primary float-lg-end" onClick={this.cancel.bind(this)}>
+                  <button style={{ marginRight: "8px", backgroundColor: "antiquewhite", borderColor:"antiquewhite", color:"chocolate" }} className="btn btn-primary float-lg-end" onClick={this.cancel.bind(this)}>
                     <AccountBalanceOutlined />
                   </button>
                 </div>
